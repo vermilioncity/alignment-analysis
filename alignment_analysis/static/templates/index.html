@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/static/css/index.css">
+    <!-- Include base CSS (optional) -->
+    <!-- Include Choices CSS -->
+    <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css"
+    />
+    <!-- Include Choices JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
+</head>
+<body>
+<h1>D&D Alignments</h1>
+<script src="/static/dist/bundle.js" type="module">
+</script>
+<div id="root"></div>
+<div class="flex-container">
+<div class="chart-container" id="scatterplot-container"></div>
+<div id="filter-dropdown">
+    <div class="section-title">Filters</div>
+    <div class="dropdown" id="respondent-choice-container">
+        <div class="filter-label">Respondents</div>
+    </div>
+    <div class="dropdown" id="location-choice-container">
+        <div class="filter-label">Locations</div>
+    </div>
+    <div class="dropdown" id="team-choice-container">
+        <div class="filter-label">Teams</div>
+    </div>
+</div>
+</div>
+</body>
+</html>
+

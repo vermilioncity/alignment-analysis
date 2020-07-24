@@ -1,0 +1,29 @@
+{
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@gitlab.com/rebecca.bruehlman/alignment-analysis.git"
+  },
+  "scripts": {
+    "build": "webpack --config webpack.config.js --mode=production -p",
+    "watch": "webpack --config webpack.config.js  --mode=development --watch"
+  },
+  "dependencies": {
+    "d3": "^5.14.2",
+    "react": "^16.13.0",
+    "react-dom": "^16.13.0",
+    "react-select": "^3.0.8",
+    "slim-select": "^1.23.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.8.6",
+    "@babel/preset-react": "7.8.3",
+    "babel-cli": "^6.26.0",
+    "babel-loader": "^8.0.6",
+    "css-loader": "^3.4.0",
+    "style-loader": "^1.1.2",
+    "webpack": "^4.41.6",
+    "webpack-cli": "^3.3.11",
+    "@babel/plugin-proposal-class-properties": "^7.8.3",
+    "babel": "^6.23.0"
+  }
+}
