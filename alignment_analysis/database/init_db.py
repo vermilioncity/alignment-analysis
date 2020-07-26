@@ -35,7 +35,7 @@ def _add_if_new(session, model, **kwargs):
 
 def load_dimension(session):
 
-    from alignment_analysis.database.models import dimensions
+    from alignment_analysis.database.models import Dimension
 
     for dim in ('Chaotic vs. Lawful', 'Evil vs. Good'):
         dimension = Dimension(name=dim)
@@ -150,11 +150,11 @@ def load_responses(session, responses):
     session.commit()
 
 
-def populate_db():
+def populate_db(db):
 
-    from alignment_analysis.database import metadata
+    from alignment_analysis.database import models
 
-    metadata.create_all(engine)
+    db.create_all()
 
     root_data_dir = os.path.join(current_app.root_path, 'database', 'data')
 

@@ -3,10 +3,14 @@
                  [org.clojure/clojurescript "1.10.773"
                   :exclusions [com.google.javascript/closure-compiler-unshaded
                                org.clojure/google-closure-library
-                               org.clojure/google-closure-library-third-party]]
+                               org.clojure/google-closure-library-third-party
+                               cljsjs/react]]
                  [thheller/shadow-cljs "2.10.17"]
+                 [day8.re-frame/http-fx "0.2.1"]
                  [reagent "0.10.0"]
-                 [re-frame "1.0.0"]]
+                 [re-frame "1.0.0"]
+                 [metasoarous/oz "1.6.0-alpha13"]
+                 [cljsjs/react-select "2.4.4-0"]]
 
   :plugins [[lein-shadow "0.2.0"]
             
@@ -28,6 +32,7 @@
                 :builds {:app {:target :browser
                                :output-dir "resources/public/js/compiled"
                                :asset-path "/js/compiled"
+                               :compiler-options {:output-feature-set :es6}
                                :modules {:app {:init-fn alignment-analysis.core/init
                                                :preloads [devtools.preload]}}
 
@@ -48,8 +53,7 @@
 
   :profiles
   {:dev
-   {:dependencies [[[binaryage/devtools "1.0.2"]
-                    [day8.re-frame/re-frame-10x "0.6.0"]]]
+   {:dependencies [[binaryage/devtools "1.0.2"]]
     :source-paths ["dev"]}
 
    :prod {}

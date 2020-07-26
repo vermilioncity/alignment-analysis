@@ -1,24 +1,28 @@
 from sqlalchemy import or_, func, column, case
 from alignment_analysis.database.models import (Respondent, Team, Response,
-                                                OptionAlignment, Dimension, Alignment, Option)
+                                                OptionAlignment, Dimension,
+                                                Alignment, Option)
 from alignment_analysis.utils import get_args
 
 
 def get_team_hierarchy(team, subteam):
-    """Self-joins the teams table to generate a ragged hierachy of departments -> teams -> subteams
+    """Self-joins the teams table to generate a ragged hierachy of
+    departments -> teams -> subteams
 
     Args:
         team (flask_sqlalchemy.model.DefaultMeta): aliased Team model
         subteam (flask_sqlalchemy.model.DefaultMeta): aliased Team model
 
     Returns:
-        flask_sqlalchemy.BaseQuery: Self-joining query comprising department/team/subteam long table hierarchy
+        flask_sqlalchemy.BaseQuery: Self-joining query comprising
+        department/team/subteam long table hierarchy
 
     """
 
     query = Team.query.outerjoin(team, Team.id == team.c.parent_id) \
                       .outerjoin(subteam, team.c.id == subteam.c.parent_id) \
-                      .filter(Team.level == 1, or_(team.c.level == 2, team.c.level.is_(None)),
+                      .filter(Team.level == 1,
+                              or_(team.c.level == 2, team.c.level.is_(None)),
                               or_(subteam.c.level == 3, subteam.c.level.is_(None))) \
                       .with_entities(Team.id.label('department_id'),
                                      Team.name.label('department_name'),
@@ -30,13 +34,16 @@ def get_team_hierarchy(team, subteam):
 
 
 def jsonify_teams(query):
-    """Converts a long hierarchy table into a JSON of department -> teams -> subteams
+    """Converts a long hierarchy table into a JSON of department ->
+    teams -> subteams
 
     Args:
-        query (flask_sqlalchemy.BaseQuery): Self-joining query comprising department/team/subteam long table hierarchy
+        query (flask_sqlalchemy.BaseQuery): Self-joining query comprising
+        department/team/subteam long table hierarchy
 
     Returns:
-        flask_sqlalchemy.BaseQuery: Query returning one JSON blob per department
+        flask_sqlalchemy.BaseQuery: Query returning one JSON blob
+        per department
 
     """
 
@@ -114,12 +121,14 @@ def get_aligned_respondent_responses(query):
         query (flask_sqlalchemy.BaseQuery): Respondents query
 
     Returns:
-        flask_sqlalchemy.BaseQuery: Respondent ID/name, dimension name, score, and option_id
+        flask_sqlalchemy.BaseQuery: Respondent ID/name, dimension name,
+        score, and option_id
 
     """
 
     query = query.join(Response) \
-                 .join(OptionAlignment, Response.option_id == OptionAlignment.option_id) \
+                 .join(OptionAlignment,
+                       Response.option_id == OptionAlignment.option_id) \
                  .join(Option) \
                  .join(Alignment) \
                  .join(Dimension) \
@@ -135,7 +144,9 @@ def get_aligned_respondent_responses(query):
 
 
 def _sum_case_when(dimension):
-    return func.sum(case([(column('dimension') == dimension, column('adjusted_score'))], else_=0)).label(dimension)
+    return func.sum(case([(column('dimension') == dimension,
+                           column('adjusted_score'))], else_=0)) \
+               .label(dimension)
 
 
 def standardize_scores(query, grouping_cols):

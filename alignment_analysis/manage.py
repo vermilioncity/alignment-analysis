@@ -2,7 +2,7 @@ from flask.cli import FlaskGroup, click, with_appcontext
 
 import os
 
-from alignment_analysis import create_app
+from alignment_analysis import db, create_app
 from alignment_analysis.database.init_db import populate_db
 
 
@@ -21,8 +21,8 @@ def cli(debug, init_db):
         os.environ['FLASK_ENV'] = 'development'
 
     if init_db:
-        delete
-        populate_db()
+        db.drop_all()
+        populate_db(db)
 
 
 if __name__ == '__main__':
