@@ -9,8 +9,7 @@
                  [day8.re-frame/http-fx "0.2.1"]
                  [reagent "0.10.0"]
                  [re-frame "1.0.0"]
-                 [metasoarous/oz "1.6.0-alpha13"]
-                 [cljsjs/react-select "2.4.4-0"]]
+                 [metasoarous/oz "1.6.0-alpha13"]]
 
   :plugins [[lein-shadow "0.2.0"]
             

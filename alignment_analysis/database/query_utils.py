@@ -79,3 +79,7 @@ def apply_filter(query, args, model_name):
                 query = query.join(model)
 
     return query
+
+
+def to_dict(query):
+    return [row._asdict() for row in query.all()]

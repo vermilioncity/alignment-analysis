@@ -2,7 +2,7 @@
   (:require
    [re-frame.core :as re-frame]
    [alignment-analysis.subs :as subs]
-   [alignment-analysis.select :as select]
+   [alignment-analysis.components.teams :as team-select]
    [oz.core :as oz]
    [reagent.core :as reagent]))
 
@@ -100,4 +100,4 @@
   (let [name "test"]
     [:div
      [:h1 "Hello from " name]
-     [:div (reagent/as-element [select/header])]]))
+     [:div (reagent/as-element [team-select/teams-select])]]))

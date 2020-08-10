@@ -1,94 +1,99 @@
-from sqlalchemy import or_, func, column, case
+from sqlalchemy import or_, func, column, case, select
 from alignment_analysis.database.models import (Respondent, Team, Response,
                                                 OptionAlignment, Dimension,
                                                 Alignment, Option)
 from alignment_analysis.utils import get_args
+from sqlalchemy import alias
 
 
-def get_team_hierarchy(team, subteam):
-    """Self-joins the teams table to generate a ragged hierachy of
-    departments -> teams -> subteams
+def get_team_hierarchy(query, team, subteam):
+    """Recursively child teams on parent id until there are
+    no more children left to add.
 
     Args:
-        team (flask_sqlalchemy.model.DefaultMeta): aliased Team model
-        subteam (flask_sqlalchemy.model.DefaultMeta): aliased Team model
+        query: Current query
+        team: Aliased Team model
+        subteam: Aliased Team model
 
     Returns:
-        flask_sqlalchemy.BaseQuery: Self-joining query comprising
-        department/team/subteam long table hierarchy
+        query: Query with children added
 
     """
 
-    query = Team.query.outerjoin(team, Team.id == team.c.parent_id) \
-                      .outerjoin(subteam, team.c.id == subteam.c.parent_id) \
-                      .filter(Team.level == 1,
-                              or_(team.c.level == 2, team.c.level.is_(None)),
-                              or_(subteam.c.level == 3, subteam.c.level.is_(None))) \
-                      .with_entities(Team.id.label('department_id'),
-                                     Team.name.label('department_name'),
-                                     team.c.id.label('team_id'),
-                                     team.c.name.label('team_name'),
-                                     subteam.c.id.label('subteam_id'), subteam.c.name.label('subteam_name'))
+    query = query.outerjoin(subteam, team.c.id == subteam.c.parent_id)
 
-    return query
+    null_count = query.filter(subteam.c.name.is_(None)).count()
+
+    if query.count() == null_count:
+        return query
+
+    query = query.add_columns(subteam.c.id, subteam.c.name)
+
+    return get_team_hierarchy(query, subteam,
+                              alias(Team))
 
 
 def jsonify_teams(query):
-    """Converts a long hierarchy table into a JSON of department ->
-    teams -> subteams
+    """Converts a table to JSON format.  This is soooo ugly.
 
     Args:
-        query (flask_sqlalchemy.BaseQuery): Self-joining query comprising
-        department/team/subteam long table hierarchy
+        query (flask_sqlalchemy.BaseQuery): Self-joining query
 
     Returns:
         flask_sqlalchemy.BaseQuery: Query returning one JSON blob
-        per department
+        per top-level team
 
     """
 
-    query = query.from_self('department_id', 'department_name',
-                            'team_id', 'team_name',
-                            func.json_build_object('id', column('subteam_id'), 'name', column('subteam_name')).label(
-                                'subteams'))
+    json_col = None
+    num_joins = int(len(query.first())/2)
 
-    query = query.from_self('department_id', 'department_name',
-                            func.json_build_object('id', column('team_id'),
-                                                   'name', column('team_name'),
-                                                   'subteams', func.array_agg(column('subteams'))).label('teams')) \
-                 .group_by('department_id', 'department_name', 'team_id', 'team_name')
+    for i in range(num_joins, 1, -1):
+        ids = [column(f'team_{j}_id') for j in range(1, i)]
+        names = [column(f'team_{j}_name') for j in range(1, i)]
 
-    blob = func.json_build_object('id', column('department_id'),
-                                  'name', column('department_name'),
-                                  'teams', func.array_agg(column('teams')))
+        json_cols = ['id', column(f'team_{i}_id'),
+                     'name', column(f'team_{i}_name')]
+        if json_col is not None:
+            json_cols.extend(['subteams', column('subteams')])
 
-    query = query.from_self(func.json_strip_nulls(blob).label('departments')) \
-                 .group_by('department_id', 'department_name')
+        json_col = func.json_strip_nulls(func.json_build_object(*json_cols))
+        query = query.from_self(func.array_agg(json_col).label('subteams'),
+                                *(ids+names)) \
+                     .group_by(*(ids+names))
+
+    query = query.from_self(column('team_1_id').label('id'),
+                            column('team_1_name').label('name'),
+                            column('subteams'))
 
     return query
 
 
-def denullify_json(results):
-    """Removes nested empty key/value pairs, e.g., {"subteams": [{}]}"
+def denullify_teams(subteams):
+    """Recursively removes nested empty values in JSON,
+    like {"subteams": {"subteams": [{}]}, etc.
 
     Args:
-        results (list): JSON that includes empty key/value pairs
+        subteams (dict): Dictionary of team metadata
 
     Returns:
-        list: JSON with no empty key/value pairs
-
+        subteams (dict): Dictionary of metadata with nested
+            data removed.
     """
 
-    for i, department in enumerate(results):
-        if department['teams'] == [{'subteams': [{}]}]:
-            del results[i]['teams']
-            continue
+    for subteam in subteams:
 
-        for j, team in enumerate(department['teams']):
-            if not team['subteams'][0]:
-                del team['subteams']
+        if 'subteams' not in subteam:
+            break
 
-    return results
+        else:
+            for subsubteam in subteam['subteams']:
+                if 'id' not in subsubteam:
+                    del subteam['subteams']
+                else:
+                    denullify_teams(subteam['subteams'])
+
+    return subteams
 
 
 def get_respondents(args):

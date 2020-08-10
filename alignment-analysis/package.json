@@ -3,7 +3,7 @@
 	"dependencies": {
 		"react": "^16.13.0",
 		"react-dom": "^16.13.0",
-		"react-select": "^3.1.0",
+		"react-select": "git+ssh://git@github.com:pfgallagher/react-select.git#24f30c5afeb032460eed2893eaedfaa0ce0a6d1e",
 		"vega": "^5.13.0",
 		"vega-embed": "^6.10.0",
 		"vega-lite": "^4.14.0"

@@ -10,13 +10,9 @@ def create_app():
     app = Flask(__name__, static_url_path='/static/')
     app.config.from_mapping(DATA_DIR=os.path.join('alignment_analysis/database'))
 
+    #'postgresql+psycopg2://{username}:{password}@{service}:{port}/{db_name}'
     app.config.from_mapping(
-        SQLALCHEMY_DATABASE_URI='postgresql+psycopg2://{username}:{password}@{service}:{port}/{db_name}'.format(
-                                username=os.getenv('POSTGRES_USER'),
-                                password=os.getenv('POSTGRES_PASSWORD'),
-                                service=os.getenv('POSTGRES_SERVICE'),
-                                port=os.getenv('POSTGRES_PORT'),
-                                db_name=os.getenv('POSTGRES_DB')),
+        SQLALCHEMY_DATABASE_URI='postgresql+psycopg2://localhost:5432/postgres',
         DATA_DIR=os.path.join('alignment_analysis/database')
     )
 
@@ -29,7 +25,7 @@ def create_app():
     with app.app_context():
         import alignment_analysis.database.models as models
 
-        import alignment_analysis.views
+        from alignment_analysis.views import index
 
         return app
 

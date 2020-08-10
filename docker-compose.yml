@@ -16,16 +16,11 @@ services:
     image: 'aa-server:latest'
     volumes:
       - "./alignment_analysis:/src/alignment_analysis"
+      - "./alignment-analysis/resources/public:/src/alignment_analysis/static"
     depends_on:
       - aa_db
     env_file:
       - ".env"
     ports:
       - 5000:5000
-  aa_frontend:
-    build: "./alignment_analysis/static"
-    restart: on-failure:10
-    image: "aa-frontend:latest"
-    volumes:
-      - "./alignment_analysis/static/:/node/client"
 

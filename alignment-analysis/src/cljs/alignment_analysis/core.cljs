@@ -2,7 +2,7 @@
   (:require
    [reagent.dom :as rdom]
    [re-frame.core :as re-frame]
-   [alignment-analysis.events :as events]
+   [alignment-analysis.events.db :as db-events]
    [alignment-analysis.views :as views]
    [alignment-analysis.config :as config]
    ))
@@ -19,6 +19,6 @@
     (rdom/render [views/main-panel] root-el)))
 
 (defn init []
-  (re-frame/dispatch-sync [::events/initialize-db])
+  (re-frame/dispatch-sync [::db-events/initialize-db])
   (dev-setup)
   (mount-root))

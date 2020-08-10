@@ -4,34 +4,24 @@
    [alignment-analysis.queries :as q]))
 
 (re-frame/reg-sub
- ::respondent-options
- (fn [db]
-   (q/get-respondent-options db)))
+ ::select-search-text
+ (fn [db [_ select-type]]
+   (q/get-select-search-text db select-type)))
 
 (re-frame/reg-sub
- ::team-options
- (fn [db]
-   (q/get-team-options db)))
+ ::select-options
+ (fn [db [_ select-type]]
+   (q/get-select-options db select-type)))
 
 (re-frame/reg-sub
- ::location-options
- (fn [db]
-   (q/get-location-options db)))
+ ::select-selections
+ (fn [db [_ select-type]]
+   (q/get-select-selections db select-type)))
 
 (re-frame/reg-sub
- ::respondent-selections
- (fn [db]
-   (q/get-respondent-selections db)))
-
-(re-frame/reg-sub
- ::team-selections
- (fn [db]
-   (q/get-team-selections db)))
-
-(re-frame/reg-sub
- ::location-selections
- (fn [db]
-   (q/get-location-selections db)))
+ ::select-busy-state
+ (fn [db [_ select-type]]
+   (q/get-select-busy-state db select-type)))
 
 (re-frame/reg-sub
  ::correlations
