@@ -1,4 +1,8 @@
+from pathlib import Path
+
 from flask import current_app as app, send_from_directory, request, jsonify
+from sqlalchemy import func, alias, union_all, select, or_
+
 from alignment_analysis import db
 from alignment_analysis.database.models import (Respondent, Team, Location)
 from alignment_analysis.database.query import (get_respondents,
@@ -7,9 +11,9 @@ from alignment_analysis.database.query import (get_respondents,
                                                jsonify_teams, denullify_teams,
                                                standardize_scores)
 from alignment_analysis.database.query_utils import apply_filter, to_dict
-from sqlalchemy import func, alias, union_all, select
 from alignment_analysis.utils import get_args
 
+STATIC_PATH = str(Path(__file__).parents[0] / 'static')
 
 @app.route('/')
 def index():
@@ -28,9 +32,25 @@ def teams():
 
     team = alias(Team)
     subteam = alias(Team)
-    query = db.session.query(team.c.id, team.c.name) \
+
+    query = db.session.query(team.c.id.label('id_1'),
+                             team.c.name.label('name_1')) \
                       .filter(team.c.parent_id.is_(None))
+
     teams = get_team_hierarchy(query, team, subteam)
+
+    search_term = request.args.get('search')
+
+    if search_term:
+        teams = teams.subquery(with_labels=True)
+        name_cols = [c for c in teams.c if 'name' in c.name]
+        teams = db.session.query(*(c.label(c.name) for c in teams.c)) \
+                          .filter(or_(*(c.ilike(f'%%{search_term}%%')
+                                        for c in name_cols)))
+
+    if not teams.count():
+        return jsonify([])
+
     teams = jsonify_teams(teams)
     teams = to_dict(teams)
     teams = denullify_teams(teams)
@@ -50,8 +70,8 @@ def locations():
     return jsonify([{'id': r.id, 'name': r.name} for r in query])
 
 
-@app.route('/z_scores', methods=['GET'])
-def z_scores():
+@app.route('/zscores', methods=['GET'])
+def zscores():
 
     if request.args:
         query = get_respondents(request.args)
@@ -63,9 +83,11 @@ def z_scores():
 
     results = [row._asdict() for row in query.all()]
 
-    return jsonify([{'id': r['id'], 'name': r['name'],
-                     'Evil vs. Good': float(r['Evil vs. Good']),
-                     'Chaotic vs. Lawful': float(r['Chaotic vs. Lawful'])} for r in results])
+    return jsonify([{'id': r['id'],
+                     'name': r['name'],
+                     'evil_vs_good': float(r['evil_vs_good']),
+                     'chaotic_vs_lawful': float(r['chaotic_vs_lawful'])}
+                    for r in results])
 
 
 @app.route('/correlation', methods=['GET'])
@@ -81,11 +103,13 @@ def send_css(path):
     return send_from_directory('css/', path)
 
 
-@app.route('/dist/<path:path>')
-def send_js(path):
-    return send_from_directory('dist/', path)
-
-
 @app.route('/data/<path:path>')
 def send_data(path):
+    assert False, "hello!"
     return send_from_directory('data/', path)
+
+
+@app.route('/js/compiled/<path:path>')
+def send_js(path):
+    return send_from_directory('{}/js/compiled/'.format(STATIC_PATH), path)
+

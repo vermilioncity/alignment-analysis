@@ -3,7 +3,8 @@
 (def default-db
   {:teams {:selections nil
            :options nil
-           :search-text nil
+           :viewable-options nil
+           :search-text ""
            :busy-state false}
    :respondents {:selections nil
                 :options nil

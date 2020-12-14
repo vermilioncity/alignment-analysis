@@ -6,7 +6,7 @@ from alignment_analysis.utils import get_args
 from sqlalchemy import alias
 
 
-def get_team_hierarchy(query, team, subteam):
+def get_team_hierarchy(query, team, subteam, count=2):
     """Recursively child teams on parent id until there are
     no more children left to add.
 
@@ -27,10 +27,11 @@ def get_team_hierarchy(query, team, subteam):
     if query.count() == null_count:
         return query
 
-    query = query.add_columns(subteam.c.id, subteam.c.name)
+    query = query.add_columns(subteam.c.id.label(f'id_{count}'),
+                              subteam.c.name.label(f'name_{count}'))
 
     return get_team_hierarchy(query, subteam,
-                              alias(Team))
+                              alias(Team), count+1)
 
 
 def jsonify_teams(query):
@@ -49,11 +50,11 @@ def jsonify_teams(query):
     num_joins = int(len(query.first())/2)
 
     for i in range(num_joins, 1, -1):
-        ids = [column(f'team_{j}_id') for j in range(1, i)]
-        names = [column(f'team_{j}_name') for j in range(1, i)]
+        ids = [column(f'id_{j}') for j in range(1, i)]
+        names = [column(f'name_{j}') for j in range(1, i)]
 
-        json_cols = ['id', column(f'team_{i}_id'),
-                     'name', column(f'team_{i}_name')]
+        json_cols = ['id', column(f'id_{i}'),
+                     'name', column(f'name_{i}')]
         if json_col is not None:
             json_cols.extend(['subteams', column('subteams')])
 
@@ -62,8 +63,8 @@ def jsonify_teams(query):
                                 *(ids+names)) \
                      .group_by(*(ids+names))
 
-    query = query.from_self(column('team_1_id').label('id'),
-                            column('team_1_name').label('name'),
+    query = query.from_self(column('id_1').label('id'),
+                            column('name_1').label('name'),
                             column('subteams'))
 
     return query
@@ -130,6 +131,17 @@ def get_aligned_respondent_responses(query):
         score, and option_id
 
     """
+    """
+    session.query(Respondent.id,
+                  Respondent.name,
+                  Dimension.name.label('dimension'),
+                  Alignment.raw_score,
+                  Alignment.binary_score,
+                  Option.question_id,
+                  OptionAlignment.option_id) \
+           .join(OptionAlignment,
+                 Response.option_id == OptionAlignment.option_id) \
+    .join()"""
 
     query = query.join(Response) \
                  .join(OptionAlignment,
@@ -149,9 +161,13 @@ def get_aligned_respondent_responses(query):
 
 
 def _sum_case_when(dimension):
+    label = dimension.lower() \
+                     .replace('.', '') \
+                     .replace(' ', '_')
+
     return func.sum(case([(column('dimension') == dimension,
                            column('adjusted_score'))], else_=0)) \
-               .label(dimension)
+               .label(label)
 
 
 def standardize_scores(query, grouping_cols):
@@ -180,7 +196,8 @@ def standardize_scores(query, grouping_cols):
                             *grouping_cols)
 
     query = query.from_self(*grouping_cols) \
-                 .add_columns(_sum_case_when('Chaotic vs. Lawful'), _sum_case_when('Evil vs. Good')) \
+                 .add_columns(_sum_case_when('Chaotic vs. Lawful'),
+                              _sum_case_when('Evil vs. Good')) \
                  .group_by(*grouping_cols)
 
     return query

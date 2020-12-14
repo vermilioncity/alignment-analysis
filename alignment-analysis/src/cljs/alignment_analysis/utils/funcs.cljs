@@ -1,14 +1,14 @@
-(ns alignment-analysis.utils
+(ns alignment-analysis.utils.funcs
   (:require [clojure.set :as set]))
 
 (defn filter-valid-selections [existing-selection valid-options]
   (set/intersection (set existing-selection) (set valid-options)))
 
-(defn not-empty? [val]
-  (not (empty? val)))
-
 (defn filter-map-empty-values [map]
   (into {} (filter second map)))
+
+(defn in? [coll v]
+  (some #(= v %) coll))
 
 (defn is-empty? [v]
   (cond
@@ -25,6 +25,9 @@
     (object? v)    (empty? (js->clj v))
 
     :else false))
+
+(defn not-empty? [val]
+  (not (is-empty? val)))
 
 (defn has-value? [v]
   (not (is-empty? v)))

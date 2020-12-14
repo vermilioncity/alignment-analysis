@@ -2,7 +2,7 @@
   (:require
    [re-frame.core :as re-frame]
    [alignment-analysis.queries :as q]
-   [alignment-analysis.utils :as utils]
+   [alignment-analysis.utils.funcs :as f-utils]
    [alignment-analysis.events.select :as select-events]
    [ajax.core :as ajax]
    [day8.re-frame.http-fx]))
@@ -12,10 +12,11 @@
  ::get-team-options
  (fn [{db :db}]
 
-   (let [params {:locations (vals (q/get-select-selections :locations db))}]
+   (let [params {:locations (vals (q/get-select-selections db :locations))
+                 :search (q/get-select-search-text db :teams)}]
      {:http-xhrio {:method :get
                    :uri "/teams"
-                   :params (utils/filter-map-empty-values params)
+                   :params (f-utils/filter-map-empty-values params)
                    :format (ajax/json-request-format)
                    :response-format (ajax/json-response-format {:keywords? true})
                    :on-success [::select-events/handle-select-option-success :teams]
