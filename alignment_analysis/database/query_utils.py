@@ -72,9 +72,14 @@ def apply_filter(query, args, model_name):
             query = query.filter(getattr(model, 'id').in_(values))
 
             if model_name not in args.keys():
-                if not _is_existing_join(query, 'respondents') and _get_table_name(model) != 'respondents':
+                if (not _is_existing_join(query, 'respondents')
+                    and _get_table_name(model) != 'respondents'):
                     query = query.join(Respondent)
 
                 query = query.join(model)
 
     return query
+
+
+def to_dict(query):
+    return [row._asdict() for row in query.all()]

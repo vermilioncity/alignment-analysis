@@ -1,18 +1,23 @@
+from pathlib import Path
+
 from flask import current_app as app, send_from_directory, request, jsonify
+from sqlalchemy import func, alias, union_all, select, or_
+
 from alignment_analysis import db
 from alignment_analysis.database.models import (Respondent, Team, Location)
-from alignment_analysis.database.query import (get_respondents, get_team_hierarchy,
+from alignment_analysis.database.query import (get_respondents,
+                                               get_team_hierarchy,
                                                get_aligned_respondent_responses,
-                                               jsonify_teams, denullify_json,
+                                               jsonify_teams, denullify_teams,
                                                standardize_scores)
-from alignment_analysis.database.query_utils import apply_filter
-from sqlalchemy import func, alias, union_all
+from alignment_analysis.database.query_utils import apply_filter, to_dict
 from alignment_analysis.utils import get_args
 
+STATIC_PATH = str(Path(__file__).parents[0] / 'static')
 
 @app.route('/')
 def index():
-    return app.send_static_file('templates/index.html')
+    return app.send_static_file('index.html')
 
 
 @app.route('/respondents', methods=['GET'])
@@ -25,33 +30,32 @@ def respondents():
 @app.route('/teams', methods=['GET'])
 def teams():
 
-    subteam = alias(Team, name='subteam')
-    team = alias(Team, name='team')
+    team = alias(Team)
+    subteam = alias(Team)
 
-    query = get_team_hierarchy(team, subteam)
+    query = db.session.query(team.c.id.label('id_1'),
+                             team.c.name.label('name_1')) \
+                      .filter(team.c.parent_id.is_(None))
 
-    request_args = dict(request.args)
-    flatten = request_args.pop('flatten', None)
+    teams = get_team_hierarchy(query, team, subteam)
 
-    if request_args:
-        args = get_args(request_args)
-        filter_query = apply_filter(Team.query, args, 'team').distinct().subquery()
-        query = query.join(filter_query, func.coalesce(subteam.c.id, team.c.id, Team.id) == filter_query.c.id)
+    search_term = request.args.get('search')
 
-    if not flatten:
-        department = query.cte(name="temp_table")
-        team = alias(department, name='team')
-        subteam = alias(department, name='subteam')
-        t = db.session.query(union_all(department.select([department.c.team_id.label('id'), department.c.subteam_name.label('name')]),
-                                       team.select([team.c.team_id.label('id'), team.c.subteam_name.label('name')]),
-                                       subteam.select([subteam.c.team_id.label('id'), subteam.c.subteam_name.label('name')])))
-        #query = query.from_self(column('department_id').label('id'))
+    if search_term:
+        teams = teams.subquery(with_labels=True)
+        name_cols = [c for c in teams.c if 'name' in c.name]
+        teams = db.session.query(*(c.label(c.name) for c in teams.c)) \
+                          .filter(or_(*(c.ilike(f'%%{search_term}%%')
+                                        for c in name_cols)))
 
-    else:
-        query = jsonify_teams(query)
-        results = denullify_json([c[0] for c in query.all()])
+    if not teams.count():
+        return jsonify([])
 
-    return jsonify(results)
+    teams = jsonify_teams(teams)
+    teams = to_dict(teams)
+    teams = denullify_teams(teams)
+
+    return jsonify(teams)
 
 
 @app.route('/locations', methods=['GET'])
@@ -66,8 +70,8 @@ def locations():
     return jsonify([{'id': r.id, 'name': r.name} for r in query])
 
 
-@app.route('/z_scores', methods=['GET'])
-def z_scores():
+@app.route('/zscores', methods=['GET'])
+def zscores():
 
     if request.args:
         query = get_respondents(request.args)
@@ -79,9 +83,11 @@ def z_scores():
 
     results = [row._asdict() for row in query.all()]
 
-    return jsonify([{'id': r['id'], 'name': r['name'],
-                     'Evil vs. Good': float(r['Evil vs. Good']),
-                     'Chaotic vs. Lawful': float(r['Chaotic vs. Lawful'])} for r in results])
+    return jsonify([{'id': r['id'],
+                     'name': r['name'],
+                     'evil_vs_good': float(r['evil_vs_good']),
+                     'chaotic_vs_lawful': float(r['chaotic_vs_lawful'])}
+                    for r in results])
 
 
 @app.route('/correlation', methods=['GET'])
@@ -97,11 +103,13 @@ def send_css(path):
     return send_from_directory('css/', path)
 
 
-@app.route('/dist/<path:path>')
-def send_js(path):
-    return send_from_directory('dist/', path)
-
-
 @app.route('/data/<path:path>')
 def send_data(path):
+    assert False, "hello!"
     return send_from_directory('data/', path)
+
+
+@app.route('/js/compiled/<path:path>')
+def send_js(path):
+    return send_from_directory('{}/js/compiled/'.format(STATIC_PATH), path)
+

@@ -35,7 +35,7 @@ def _add_if_new(session, model, **kwargs):
 
 def load_dimension(session):
 
-    from alignment_analysis.database.models import dimensions
+    from alignment_analysis.database.models import Dimension
 
     for dim in ('Chaotic vs. Lawful', 'Evil vs. Good'):
         dimension = Dimension(name=dim)
@@ -89,10 +89,10 @@ def load_teams(app, session, filepath):
 
             assert parent, f'{parent_name} does not exist'
 
-            session.add(Team(name=name, parent_id=parent.id, level=team['level']))
+            session.add(Team(name=name, parent_id=parent.id))
 
         else:
-            session.add(Team(name=name, level=team['level']))
+            session.add(Team(name=name))
 
         session.flush()
 
@@ -113,23 +113,28 @@ def load_locations(app, session, filepath):
 
 def load_respondents(app, session, filepath):
 
-    from alignment_analysis.database.models import Team, Location, Respondent
+    from alignment_analysis.database.models import Location, Respondent, Team
 
     with app.open_resource(filepath) as f:
         respondents = json.load(f)
 
     for respondent in respondents:
         name = respondent['name']
-        team_name = respondent.get('sub_team') or respondent.get('team') or respondent['department']
+        teams = respondent['teams']
         location_name = respondent['location']
 
-        team = _get_instance(session, Team, name=team_name)
         location = _get_instance(session, Location, name=location_name)
 
-        assert team, f'{team_name} does not exist'
         assert location, f'{location} does not exist'
 
-        session.add(Respondent(name=name, team_id=team.id, location_id=location.id))
+        r = Respondent(name=name, location_id=location.id)
+        session.add(r)
+
+        session.flush()
+
+        for team in teams:
+            t = _get_instance(session, Team, name=team)
+            r.teams.append(t)
 
     session.commit()
 
@@ -150,11 +155,11 @@ def load_responses(session, responses):
     session.commit()
 
 
-def populate_db():
+def populate_db(db):
 
-    from alignment_analysis.database import metadata
+    from alignment_analysis.database import models
 
-    metadata.create_all(engine)
+    db.create_all()
 
     root_data_dir = os.path.join(current_app.root_path, 'database', 'data')
 

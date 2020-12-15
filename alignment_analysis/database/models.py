@@ -1,52 +1,110 @@
-from sqlalchemy import Table, Column, Integer, String, MetaData, ForeignKey
+from sqlalchemy import Column, Integer, ForeignKey, String
+from sqlalchemy.ext.associationproxy import association_proxy
+from sqlalchemy.orm import relationship
+from alignment_analysis import db
 
-metadata = MetaData()
 
-respondents = Table('respondents', metadata,
-                    Column('id', Integer, primary_key=True),
-                    Column('name', String(30)),
-                    Column('location_id', Integer, ForeignKey('locations.id'), nullable=False),
-                    Column('team_id', Integer, ForeignKey('teams.id'), nullable=False)
-                    )
+respondent_team = db.Table('respondent_team',
+                           db.Column('respondent_id',
+                                     Integer, ForeignKey('respondent.id')),
+                           db.Column('team_id',
+                                     Integer, ForeignKey('team.id')))
 
-teams = Table('teams', metadata,
-              Column('id', Integer, primary_key=True),
-              Column('name', String(30), unique=True, nullable=False),
-              Column('level', Integer, nullable=False),
-              Column('parent_id', Integer, ForeignKey('teams.id'), nullable=True))
+class Respondent(db.Model):
+    __tablename__ = 'respondent'
 
-locations = Table('locations', metadata,
-                  Column('id', Integer, primary_key=True),
-                  Column('name', String(20), unique=True, nullable=False))
+    id = Column(Integer, primary_key=True)
+    name = Column(String(30))
+    location_id = Column(Integer, ForeignKey('location.id'), nullable=False)
+    teams = relationship("Team", secondary=respondent_team)
 
-questions = Table('questions', metadata,
-                  Column('id', Integer, primary_key=True),
-                  Column('name', String(140), unique=True, nullable=False))
+    def __repr__(self):
+        return '<Respondent %r>' % self.name
 
-options = Table('options', metadata,
-                Column('id', Integer, primary_key=True),
-                Column('name', String(80), unique=True, nullable=False),
-                Column('question_id', Integer, ForeignKey('questions.id'), nullable=False))
 
-alignments = Table('alignments', metadata,
-                   Column('id', Integer, primary_key=True),
-                   Column('name', String(20), unique=True, nullable=False),
-                   Column('raw_score', Integer, nullable=False),
-                   Column('binary_score', Integer, nullable=False),
-                   Column('dimension_id', Integer, ForeignKey('dimensions.id'), nullable=False))
+class Team(db.Model):
+    __tablename__ = 'team'
 
-dimensions = Table('dimensions', metadata,
-                   Column('id', Integer, primary_key=True),
-                   Column('name', String(20), unique=True, nullable=False))
+    id = Column(Integer, primary_key=True)
+    name = Column(String(30), unique=True, nullable=False)
+    parent_id = Column(Integer, ForeignKey('team.id'), nullable=True)
+    respondents = relationship("Respondent",
+                               secondary=respondent_team)
 
-option_alignments = Table('option_alignments', metadata,
-                          Column('question_id', Integer, ForeignKey('questions.id'), nullable=False),
-                          Column('option_id', Integer, ForeignKey('options.id'), nullable=False),
-                          Column('alignment_id', Integer, ForeignKey('alignments.id'), nullable=False),
-                          Column('dimension_id', Integer, ForeignKey('dimensions.id'), nullable=False))
+    def __repr__(self):
+        return '<Team %r>' % self.name
 
-responses = Table('responses', metadata,
-                  Column('id', Integer, primary_key=True),
-                  Column('question_id', Integer, ForeignKey('questions.id'), nullable=False),
-                  Column('respondent_id', Integer, ForeignKey('respondents.id'), nullable=False),
-                  Column('option_id', Integer, ForeignKey('options.id'), nullable=False))
+
+class Location(db.Model):
+    __tablename__ = 'location'
+
+    id = Column(Integer, primary_key=True)
+    name = Column(String(20), unique=True, nullable=False)
+
+    def __repr__(self):
+        return '<Location %r>' % self.name
+
+
+class Question(db.Model):
+    __tablename__ = 'question'
+
+    id = Column(Integer, primary_key=True)
+    name = Column(String(140), unique=True, nullable=False)
+
+    def __repr__(self):
+        return '<Question %r>' % self.name
+
+
+class Option(db.Model):
+    __tablename__ = 'option'
+
+    id = Column(Integer, primary_key=True)
+    name = Column(String(80), unique=True, nullable=False)
+    question_id = Column(Integer, ForeignKey('question.id'), nullable=False)
+
+    def __repr__(self):
+        return '<Option %r>' % self.name
+
+
+class Alignment(db.Model):
+    __tablename__ = 'alignment'
+
+    id = Column(Integer, primary_key=True)
+    name = Column(String(20), unique=True, nullable=False)
+    raw_score = Column(Integer, nullable=False)
+    binary_score = Column(Integer, nullable=False)
+    dimension_id = Column(Integer, ForeignKey('dimension.id'), nullable=False)
+
+
+class Dimension(db.Model):
+    __tablename__ = 'dimension'
+
+    id = Column(Integer, primary_key=True)
+    name = Column(String(20), nullable=False)
+
+
+class OptionAlignment(db.Model):
+    __tablename__ = 'option_alignment'
+
+    id = Column(Integer, primary_key=True)
+    question_id = Column(Integer, ForeignKey('question.id'), nullable=False)
+    option_id = Column(Integer, ForeignKey('option.id'), nullable=False)
+    alignment_id = Column(Integer, ForeignKey('alignment.id'), nullable=False)
+    dimension_id = Column(Integer, ForeignKey('dimension.id'), nullable=False)
+
+    def __repr__(self):
+        return '<Option Alignment %r, %r>' % (self.alignment_id,
+                                              self.option_id)
+
+
+class Response(db.Model):
+    __tablename__ = 'response'
+
+    id = Column(Integer, primary_key=True)
+    question_id = Column(Integer, ForeignKey('question.id'), nullable=False)
+    respondent_id = Column(Integer, ForeignKey('respondent.id'), nullable=False)
+    option_id = Column(Integer, ForeignKey('option.id'), nullable=False)
+
+    def __repr__(self):
+        return '<Response: Respondent %r, Answer %r>' % (self.respondent_id,
+                                                         self.option_id)

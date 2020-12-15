@@ -1,5 +1,16 @@
 {
 	"name": "alignment-analysis",
-	"dependencies": {},
-	"devDependencies": {}
+	"dependencies": {
+		"highlight.js": "9.18.1",
+		"react": "^16.13.0",
+		"react-dom": "^16.13.0",
+		"react-highlight.js": "1.0.7",
+		"react-select": "3.1.1",
+		"vega": "^5.13.0",
+		"vega-embed": "^6.10.0",
+		"vega-lite": "^4.14.0"
+	},
+	"devDependencies": {
+		"shadow-cljs": "2.11.8"
+	}
 }
