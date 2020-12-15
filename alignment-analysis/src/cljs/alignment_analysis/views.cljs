@@ -8,35 +8,45 @@
    [reagent.core :as reagent]))
 
 (defn get-min-max [scores axis]
-  (println (map #(axis %) scores))
-  (println axis)
-  (println scores)
-  (println (apply (juxt min max) (map #(axis %) scores)))
-           (apply (juxt min max) (map #(axis %) scores)))
+  (apply (juxt min max) (map #(axis %) scores)))
 
 (defn scatterplot []
-  (let [scores @(rf/subscribe [::subs/zscores])
-        min-range (get-min-max scores :chaotic-vs-lawful)]
-    
-    (println min-range)
+  (let [scores @(rf/subscribe [::subs/zscores])]
     
     {:data {:name "zscores"
             :values scores}
      :width 600
      :height 600
+     :selection {:hover {:type "single"
+                             :empty "none"
+                             :on "mouseover"}
+                 :select {:type "multi"}}
      :marks [{:name "marks"
               :type "symbol"
               :from {:data "zscores"}
               :encode
-              {:update
+              {:fill {:value "#4C78A8"}
+:condition {:test "datum['name'] === null"
+            :value "#FFDB58"}
+               :enter {:fill {:value "#DAA520"}
+                       :stroke {:value "#FFDB58"}}
+               :exit {:fill {:value "#4682b4"}
+                      :stroke {:value "#4C78A8"}}
+               :hover {:fill {:value "#DAA520"}
+                       :stroke {:value "#FFDB58"}}
+               :update
                {:x {:scale "x", :field "evil_vs_good"}
                 :y {:scale "y", :field "chaotic_vs_lawful"}
                 :half {:scale "x", :field "chaotic_vs_lawful"}
+                :tooltip {:field "name", :type "nominal"}
                 :shape {:value "circle"}
-                :strokeWidth {:value 2}
-                :opacity {:value 0.5}
+                :strokeWidth {:value 2
+                              :condition {:test "datum['name'] !== null"
+                                          :value 10}}
                 :stroke {:value "#4682b4"}
-                :fill {:value "transparent"}}}}]
+                :fill {:value "#4C78A8"}
+                       :condition {:test "datum['name'] !== null"
+                                   :value "#FFDB58"}}}}]
      :scales [{:name "x"
                :type "linear"
                :round true
