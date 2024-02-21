@@ -1,10 +1,18 @@
-FROM python:3.7
+FROM openjdk:11
 
-WORKDIR /src
+RUN apt-get update && apt-get install -y python3 python3-pip
 
-COPY requirements.txt .
-RUN pip install -r requirements.txt
+RUN wget https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein -O /usr/local/bin/lein
+RUN chmod a+x /usr/local/bin/lein
 
-COPY alignment_analysis alignment_analysis/
+WORKDIR /app
 
-CMD ["python", "-m", "alignment_analysis.manage", "--init_db", "--debug", "run", "--host", "0.0.0.0", "--port", "5000"]
+COPY . /app
+
+RUN cd alignment-analysis && lein release app && cd ..
+
+RUN ln -s alignment-analysis/resources/public alignment_analysis/static
+
+RUN pip intall -r requirements.txt
+
+CMD ["python", "-m", "alignment_analysis.manage", "--init_db", "run", "--host", "0.0.0.0", "--port", "5000"]

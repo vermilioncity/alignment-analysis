@@ -123,4 +123,4 @@ volumes/
 # artifacts
 dump.rdb
 
-data/
+alignment_analysis/database/etl/data/real_*

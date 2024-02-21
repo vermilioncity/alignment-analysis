@@ -51,7 +51,8 @@
 
     [:table {:style {:float "left"
                      :font-family "Tahoma"
-                     :border-collapse "collapse"}}
+                     :border-collapse "collapse"
+                     :width "300px"}}
      [:thead {:style {:background-color "#f0f2f0"
                       :text-align "center"
                       :border "1px"
@@ -68,14 +69,35 @@
       [:tr
        [:td {:col-span (count names)
              :style {:text-align "center"
-                     :padding "7px 0 7px 0"}} "Most Similar"]]
+                     :padding "7px 0 7px 0"
+                     :fontWeight "bold"}} "Most Similar"]]
+      [:td {:style {:margin-right 10
+                    :padding "0 10px 5px 10px"}}
+       [:span {:style {:float "left"
+                       :margin-right 10
+                       :fontWeight "bold"
+                       :fontSize "14px"}}
+        "Name"]
+       [:span {:style {:float "right"
+                       :fontWeight "bold"
+                       :fontSize "14px"}} "Correlation"]]
       (score-rows top)
       [:tr
        [:td {:col-span (count names)
              :style {:text-align "center"
-                     :padding "7px 0 7px 0"}} "Least Similar"]]
+                     :padding "7px 0 7px 0"
+                     :fontWeight "bold"}} "Least Similar"]]
+            [:td {:style {:margin-right 10
+                    :padding "0 10px 5px 10px"}}
+       [:span {:style {:float "left"
+                       :margin-right 10
+                       :fontWeight "bold"
+                       :fontSize "14px"}}
+        "Name"]
+       [:span {:style {:float "right"
+                       :fontWeight "bold"
+                       :fontSize "14px"}} "Correlation"]]
       (score-rows bottom)]]))
-
 
 
 (def tooltip-label

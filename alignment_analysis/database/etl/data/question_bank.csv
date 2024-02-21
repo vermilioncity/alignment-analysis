@@ -1,0 +1,141 @@
+question,alignment,option,raw_score,binary_score,dimension
+How do you respond when mistakenly added to a reply-all?,Chaotic,"Stop working, sit back, and watch",-1,0,Chaotic vs. Lawful
+How do you respond when mistakenly added to a reply-all?,Good,"Stop working, sit back, and watch",1,1,Evil vs. Good
+The office internet goes down.  How do you react?,Chaotic,Quietly slack off,-1,0,Chaotic vs. Lawful
+The office internet goes down.  How do you react?,Good,Quietly slack off,1,1,Evil vs. Good
+How do you react when your computer is having repeated issues?,Chaotic,Create a Slack channel to complain,-1,0,Chaotic vs. Lawful
+How do you react when your computer is having repeated issues?,Good,Create a Slack channel to complain,1,1,Evil vs. Good
+When did you complete the Code of Conduct training?,Chaotic,Once Megan Clarken said it was a competition between her and Karthik,-1,0,Chaotic vs. Lawful
+When did you complete the Code of Conduct training?,Good,Once Megan Clarken said it was a competition between her and Karthik,1,1,Evil vs. Good
+Which is your favorite Slack Channel?,Chaotic,Random,-1,0,Chaotic vs. Lawful
+Which is your favorite Slack Channel?,Good,Random,1,1,Evil vs. Good
+"You need to write on a whiteboard in a meeting room, but most of the whiteboard has writing on it with a ""do not erase"".  What do you do?",Chaotic,"Go to another room, but add witty commentary to the ""DO NOT ERASE""",-1,0,Chaotic vs. Lawful
+"You need to write on a whiteboard in a meeting room, but most of the whiteboard has writing on it with a ""do not erase"".  What do you do?",Good,"Go to another room, but add witty commentary to the ""DO NOT ERASE""",1,1,Evil vs. Good
+What is your favorite capability of Slack?,Chaotic,"Starting friendly, but fiery, debates",-1,0,Chaotic vs. Lawful
+What is your favorite capability of Slack?,Good,"Starting friendly, but fiery, debates",1,1,Evil vs. Good
+When do you say hi to colleagues on a large call?,Chaotic,As soon as you join the call,-1,0,Chaotic vs. Lawful
+When do you say hi to colleagues on a large call?,Good,As soon as you join the call,1,1,Evil vs. Good
+Suppose your department's leadership team hosted a casual AMA (ask me anything) on Slack.  What would describe your involvement?,Chaotic,"Asking many, but non-work related, questions",-1,0,Chaotic vs. Lawful
+Suppose your department's leadership team hosted a casual AMA (ask me anything) on Slack.  What would describe your involvement?,Good,"Asking many, but non-work related, questions",1,1,Evil vs. Good
+"While taking required training (e.g., security), which of the following sound like you?",Chaotic,Answer the questions incorrectly; it's not graded anyway,-1,0,Chaotic vs. Lawful
+"While taking required training (e.g., security), which of the following sound like you?",Good,Answer the questions incorrectly; it's not graded anyway,1,1,Evil vs. Good
+A colleague shares a Google spreadsheet with you and the top row isn't frozen. What do you do?,Chaotic,"Freeze it for them, and announce you're doing it on a conference call",-1,0,Chaotic vs. Lawful
+A colleague shares a Google spreadsheet with you and the top row isn't frozen. What do you do?,Good,"Freeze it for them, and announce you're doing it on a conference call",1,1,Evil vs. Good
+How many browser tabs do you have open right now?,Chaotic,7-20 tabs in one browser window,-1,0,Chaotic vs. Lawful
+How many browser tabs do you have open right now?,Good,7-20 tabs in one browser window,1,1,Evil vs. Good
+How do you respond to a message on Slack?,Chaotic,Non-threaded response,-1,0,Chaotic vs. Lawful
+How do you respond to a message on Slack?,Good,Non-threaded response,1,1,Evil vs. Good
+Where do your downloaded files live?,Chaotic,In a dedicated download folder that I never look at again,-1,0,Chaotic vs. Lawful
+Where do your downloaded files live?,Good,In a dedicated download folder that I never look at again,1,1,Evil vs. Good
+What's your favorite mode of internal communication?,Chaotic,Slack,-1,0,Chaotic vs. Lawful
+What's your favorite mode of internal communication?,Good,Slack,1,1,Evil vs. Good
+How do you respond when mistakenly added to a reply-all?,Lawful,Filter or trash subsequent replies,1,1,Chaotic vs. Lawful
+How do you respond when mistakenly added to a reply-all?,Good,Filter or trash subsequent replies,1,1,Evil vs. Good
+The office internet goes down.  How do you react?,Lawful,Go home to get your work done,1,1,Chaotic vs. Lawful
+The office internet goes down.  How do you react?,Good,Go home to get your work done,1,1,Evil vs. Good
+How do you react when your computer is having repeated issues?,Lawful,Just deal with it,1,1,Chaotic vs. Lawful
+How do you react when your computer is having repeated issues?,Good,Just deal with it,1,1,Evil vs. Good
+When did you complete the Code of Conduct training?,Lawful,As soon as I had free time,1,1,Chaotic vs. Lawful
+When did you complete the Code of Conduct training?,Good,As soon as I had free time,1,1,Evil vs. Good
+Which is your favorite Slack Channel?,Lawful,Work-related channels,1,1,Chaotic vs. Lawful
+Which is your favorite Slack Channel?,Good,Work-related channels,1,1,Evil vs. Good
+"You need to write on a whiteboard in a meeting room, but most of the whiteboard has writing on it with a ""do not erase"".  What do you do?",Lawful,Leave it alone and find another room,1,1,Chaotic vs. Lawful
+"You need to write on a whiteboard in a meeting room, but most of the whiteboard has writing on it with a ""do not erase"".  What do you do?",Good,Leave it alone and find another room,1,1,Evil vs. Good
+What is your favorite capability of Slack?,Lawful,Communicating about work-related issues,1,1,Chaotic vs. Lawful
+What is your favorite capability of Slack?,Good,Communicating about work-related issues,1,1,Evil vs. Good
+When do you say hi to colleagues on a large call?,Lawful,If there is a pause in conversation soon after you join,1,1,Chaotic vs. Lawful
+When do you say hi to colleagues on a large call?,Good,If there is a pause in conversation soon after you join,1,1,Evil vs. Good
+Suppose your department's leadership team hosted a casual AMA (ask me anything) on Slack.  What would describe your involvement?,Lawful,Asking questions related to work or careers,1,1,Chaotic vs. Lawful
+Suppose your department's leadership team hosted a casual AMA (ask me anything) on Slack.  What would describe your involvement?,Good,Asking questions related to work or careers,1,1,Evil vs. Good
+"While taking required training (e.g., security), which of the following sound like you?",Lawful,Read everything earnestly,1,1,Chaotic vs. Lawful
+"While taking required training (e.g., security), which of the following sound like you?",Good,Read everything earnestly,1,1,Evil vs. Good
+A colleague shares a Google spreadsheet with you and the top row isn't frozen. What do you do?,Lawful,Freeze it for them,1,1,Chaotic vs. Lawful
+A colleague shares a Google spreadsheet with you and the top row isn't frozen. What do you do?,Good,Freeze it for them,1,1,Evil vs. Good
+How many browser tabs do you have open right now?,Lawful,6 or fewer,1,1,Chaotic vs. Lawful
+How many browser tabs do you have open right now?,Good,6 or fewer,1,1,Evil vs. Good
+How do you respond to a message on Slack?,Lawful,Thread reply,1,1,Chaotic vs. Lawful
+How do you respond to a message on Slack?,Good,Thread reply,1,1,Evil vs. Good
+Where do your downloaded files live?,Lawful,Immediately categorized into the appropriate folder,1,1,Chaotic vs. Lawful
+Where do your downloaded files live?,Good,Immediately categorized into the appropriate folder,1,1,Evil vs. Good
+What's your favorite mode of internal communication?,Lawful,Email,1,1,Chaotic vs. Lawful
+What's your favorite mode of internal communication?,Good,Email,1,1,Evil vs. Good
+How do you respond when mistakenly added to a reply-all?,Chaotic,Reply all,-1,0,Chaotic vs. Lawful
+How do you respond when mistakenly added to a reply-all?,Evil,Reply all,-1,0,Evil vs. Good
+The office internet goes down.  How do you react?,Chaotic,Encourage other people to give up on work and shoot the breeze instead,-1,0,Chaotic vs. Lawful
+The office internet goes down.  How do you react?,Evil,Encourage other people to give up on work and shoot the breeze instead,-1,0,Evil vs. Good
+How do you react when your computer is having repeated issues?,Chaotic,"Slam the computer on your desk, hoping it breaks for real",-1,0,Chaotic vs. Lawful
+How do you react when your computer is having repeated issues?,Evil,"Slam the computer on your desk, hoping it breaks for real",-1,0,Evil vs. Good
+When did you complete the Code of Conduct training?,Chaotic,I won't,-1,0,Chaotic vs. Lawful
+When did you complete the Code of Conduct training?,Evil,I won't,-1,0,Evil vs. Good
+Which is your favorite Slack Channel?,Chaotic,MA-Pulse,-1,0,Chaotic vs. Lawful
+Which is your favorite Slack Channel?,Evil,MA-Pulse,-1,0,Evil vs. Good
+"You need to write on a whiteboard in a meeting room, but most of the whiteboard has writing on it with a ""do not erase"".  What do you do?",Chaotic,Erase EVERYTHING,-1,0,Chaotic vs. Lawful
+"You need to write on a whiteboard in a meeting room, but most of the whiteboard has writing on it with a ""do not erase"".  What do you do?",Evil,Erase EVERYTHING,-1,0,Evil vs. Good
+What is your favorite capability of Slack?,Chaotic,Creating new channels for one-time use,-1,0,Chaotic vs. Lawful
+What is your favorite capability of Slack?,Evil,Creating new channels for one-time use,-1,0,Evil vs. Good
+When do you say hi to colleagues on a large call?,Chaotic,While other people are talking,-1,0,Chaotic vs. Lawful
+When do you say hi to colleagues on a large call?,Evil,While other people are talking,-1,0,Evil vs. Good
+Suppose your department's leadership team hosted a casual AMA (ask me anything) on Slack.  What would describe your involvement?,Chaotic,Asking questions specifically to stir the pot,-1,0,Chaotic vs. Lawful
+Suppose your department's leadership team hosted a casual AMA (ask me anything) on Slack.  What would describe your involvement?,Evil,Asking questions specifically to stir the pot,-1,0,Evil vs. Good
+"While taking required training (e.g., security), which of the following sound like you?",Chaotic,"Test Nielsen's boundaries and find out what ""required"" really means",-1,0,Chaotic vs. Lawful
+"While taking required training (e.g., security), which of the following sound like you?",Evil,"Test Nielsen's boundaries and find out what ""required"" really means",-1,0,Evil vs. Good
+A colleague shares a Google spreadsheet with you and the top row isn't frozen. What do you do?,Chaotic,Screenshot it and complain about it to other people,-1,0,Chaotic vs. Lawful
+A colleague shares a Google spreadsheet with you and the top row isn't frozen. What do you do?,Evil,Screenshot it and complain about it to other people,-1,0,Evil vs. Good
+How many browser tabs do you have open right now?,Chaotic,">20 total tabs or more, spread across at least 2 browser windows",-1,0,Chaotic vs. Lawful
+How many browser tabs do you have open right now?,Evil,">20 total tabs or more, spread across at least 2 browser windows",-1,0,Evil vs. Good
+How do you respond to a message on Slack?,Chaotic,What's Slack?,-1,0,Chaotic vs. Lawful
+How do you respond to a message on Slack?,Evil,What's Slack?,-1,0,Evil vs. Good
+Where do your downloaded files live?,Chaotic,"On my desktop with 50 file ""friends""",-1,0,Chaotic vs. Lawful
+Where do your downloaded files live?,Evil,"On my desktop with 50 file ""friends""",-1,0,Evil vs. Good
+What's your favorite mode of internal communication?,Chaotic,Currents (but call it Google+),-1,0,Chaotic vs. Lawful
+What's your favorite mode of internal communication?,Evil,Currents (but call it Google+),-1,0,Evil vs. Good
+How do you respond when mistakenly added to a reply-all?,Lawful,"First person to reply ""you can mute a thread""",1,1,Chaotic vs. Lawful
+How do you respond when mistakenly added to a reply-all?,Evil,"First person to reply ""you can mute a thread""",-1,0,Evil vs. Good
+The office internet goes down.  How do you react?,Lawful,Use insecure public wifi to continue work,1,1,Chaotic vs. Lawful
+The office internet goes down.  How do you react?,Evil,Use insecure public wifi to continue work,-1,0,Evil vs. Good
+How do you react when your computer is having repeated issues?,Lawful,"Root for each issue being so bad, it will finally force a replacement",1,1,Chaotic vs. Lawful
+How do you react when your computer is having repeated issues?,Evil,"Root for each issue being so bad, it will finally force a replacement",-1,0,Evil vs. Good
+When did you complete the Code of Conduct training?,Lawful,"I haven't, but I will eventually",1,1,Chaotic vs. Lawful
+When did you complete the Code of Conduct training?,Evil,"I haven't, but I will eventually",-1,0,Evil vs. Good
+Which is your favorite Slack Channel?,Lawful,General,1,1,Chaotic vs. Lawful
+Which is your favorite Slack Channel?,Evil,General,-1,0,Evil vs. Good
+"You need to write on a whiteboard in a meeting room, but most of the whiteboard has writing on it with a ""do not erase"".  What do you do?",Lawful,"Go to another room, but partially erase ""Do Not Erase"" before leaving",1,1,Chaotic vs. Lawful
+"You need to write on a whiteboard in a meeting room, but most of the whiteboard has writing on it with a ""do not erase"".  What do you do?",Evil,"Go to another room, but partially erase ""Do Not Erase"" before leaving",-1,0,Evil vs. Good
+What is your favorite capability of Slack?,Lawful,"Stalking other channels, but not joining",1,1,Chaotic vs. Lawful
+What is your favorite capability of Slack?,Evil,"Stalking other channels, but not joining",-1,0,Evil vs. Good
+When do you say hi to colleagues on a large call?,Lawful,"Not at all, so no one knows you've joined",1,1,Chaotic vs. Lawful
+When do you say hi to colleagues on a large call?,Evil,"Not at all, so no one knows you've joined",-1,0,Evil vs. Good
+Suppose your department's leadership team hosted a casual AMA (ask me anything) on Slack.  What would describe your involvement?,Lawful,Asking about the strategic review,1,1,Chaotic vs. Lawful
+Suppose your department's leadership team hosted a casual AMA (ask me anything) on Slack.  What would describe your involvement?,Evil,Asking about the strategic review,-1,0,Evil vs. Good
+"While taking required training (e.g., security), which of the following sound like you?",Lawful,"Answer everything earnestly, but make fun of the examples",1,1,Chaotic vs. Lawful
+"While taking required training (e.g., security), which of the following sound like you?",Evil,"Answer everything earnestly, but make fun of the examples",-1,0,Evil vs. Good
+A colleague shares a Google spreadsheet with you and the top row isn't frozen. What do you do?,Lawful,"Who cares, why would I freeze rows?",1,1,Chaotic vs. Lawful
+A colleague shares a Google spreadsheet with you and the top row isn't frozen. What do you do?,Evil,"Who cares, why would I freeze rows?",-1,0,Evil vs. Good
+How many browser tabs do you have open right now?,Lawful,Multiple browser windows with just a few tabs each,1,1,Chaotic vs. Lawful
+How many browser tabs do you have open right now?,Evil,Multiple browser windows with just a few tabs each,-1,0,Evil vs. Good
+How do you respond to a message on Slack?,Lawful,"Thread reply, but also post to channel",1,1,Chaotic vs. Lawful
+How do you respond to a message on Slack?,Evil,"Thread reply, but also post to channel",-1,0,Evil vs. Good
+Where do your downloaded files live?,Lawful,A special folder on my desktop just for downloads,1,1,Chaotic vs. Lawful
+Where do your downloaded files live?,Evil,A special folder on my desktop just for downloads,-1,0,Evil vs. Good
+What's your favorite mode of internal communication?,Lawful,Google Hangouts / Phone,1,1,Chaotic vs. Lawful
+What's your favorite mode of internal communication?,Evil,Google Hangouts / Phone,-1,0,Evil vs. Good
+How do you handle incoming email?,Lawful,"Categorize, filter, or archive",1,1,Chaotic vs. Lawful
+"Looking back on projects you enjoyed working on, do you prefer your projects carefully planned or hairy and down-to-the-wire?",Lawful,Carefully planned,1,1,Chaotic vs. Lawful
+When do you typically file your expense reports?,Lawful,Before your manager starts getting cc'd,1,1,Chaotic vs. Lawful
+How would you describe your working hours?,Lawful,Consistent 8-9 to 5-6,1,1,Chaotic vs. Lawful
+Your department has decided to re-structure and re-brand your team. How do you refer to your team to others? ,Lawful,"By the new, official name",1,1,Chaotic vs. Lawful
+How do you handle incoming email?,Chaotic,Organize nothing,-1,0,Chaotic vs. Lawful
+"Looking back on projects you enjoyed working on, do you prefer your projects carefully planned or hairy and down-to-the-wire?",Chaotic,Hairy and down-to-the-wire,-1,0,Chaotic vs. Lawful
+When do you typically file your expense reports?,Chaotic,After your manager starts getting cc'd,-1,0,Chaotic vs. Lawful
+How would you describe your working hours?,Chaotic,In spurts throughout the day and evening,-1,0,Chaotic vs. Lawful
+Your department has decided to re-structure and re-brand your team. How do you refer to your team to others? ,Chaotic,By the old name,-1,0,Chaotic vs. Lawful
+Someone gets in an elevator with you and chooses the floor below yours.  How do you feel?,Evil,Wish for their immediate and swift destruction,-1,0,Evil vs. Good
+What do you do when the kitchen pantry is re-stocked with your favorite snack?,Evil,Stash a few in your desk drawer,-1,0,Evil vs. Good
+What best describes what you do (or would do) if you are on a call at the office?,Evil,Take the call at your desk,-1,0,Evil vs. Good
+How do you pronounce the acronym for Total Ad Ratings?,Evil,Tar,-1,0,Evil vs. Good
+How do you open a DM / IM conversation?,Evil,"Say ""hey"" and wait for a response before expanding on what you need",-1,0,Evil vs. Good
+Someone gets in an elevator with you and chooses the floor below yours.  How do you feel?,Good,Patiently wait,1,1,Evil vs. Good
+What do you do when the kitchen pantry is re-stocked with your favorite snack?,Good,Take one for yourself,1,1,Evil vs. Good
+What best describes what you do (or would do) if you are on a call at the office?,Good,Take the call in a conference room,1,1,Evil vs. Good
+How do you pronounce the acronym for Total Ad Ratings?,Good,Tee-Ay-Ar,1,1,Evil vs. Good
+How do you open a DM / IM conversation?,Good,Immediately ask whether they have time to chat and/or just state what you need,1,1,Evil vs. Good

@@ -14,7 +14,8 @@
 
 (defn on-value-change [select-id selected-value]
   (rf/dispatch [::select-events/set-select-selections select-id selected-value])
-  (rf/dispatch [::score-events/zscores]))
+  (rf/dispatch [::score-events/zscores])
+  (rf/dispatch [::update-options-based-on-selection :location selected-value]))
 
 (defn locations-select []
   (let [search-text @(rf/subscribe [::select-subs/select-search-text :locations])

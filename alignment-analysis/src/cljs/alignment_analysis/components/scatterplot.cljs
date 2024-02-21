@@ -37,8 +37,10 @@
 
     {:data {:name "zscores"
             :values scores}
-     :width 400
-     :height 400
+     :width 650
+     :height 650
+     :title {:text "Alignment Score"
+              :fontSize 20}
      :selection {:hover {:type "single"
                          :empty "none"
                          :on "mouseover"}
@@ -47,32 +49,32 @@
               :type "text"
               :encode {:enter {:fill {:value "#dbd9d9"}
                                :text {:value "Lawful/Evil"}
-                               :x {:value 30}
-                               :y {:value 90}
+                               :x {:value 75}
+                               :y {:value 120}
                                :fontSize {:value 30}
                                :opacity {:value 0.5}}}}
              {:name "chaotic-evil"
               :type "text"
               :encode {:enter {:fill {:value "#dbd9d9"}
                                :text {:value "Chaotic/Evil"}
-                               :x {:value 30}
-                               :y {:value 285}
+                               :x {:value 75}
+                               :y {:value 375}
                                :fontSize {:value 30}
                                :opacity {:value 0.5}}}}
              {:name "chaotic-good"
               :type "text"
               :encode {:enter {:fill {:value "#dbd9d9"}
                                :text {:value "Chaotic/Good"}
-                               :x {:value 225}
-                               :y {:value 285}
+                               :x {:value 330}
+                               :y {:value 375}
                                :fontSize {:value 30}
                                :opacity {:value 0.5}}}}
              {:name "lawful-good"
               :type "text"
               :encode {:enter {:fill {:value "#dbd9d9"}
                                :text {:value "Lawful/Good"}
-                               :x {:value 225}
-                               :y {:value 90}
+                               :x {:value 330}
+                               :y {:value 120}
                                :fontSize {:value 30}
                                :opacity {:value 0.5}}}}
 
@@ -99,28 +101,28 @@
                :round true
                :nice true
                :zero true
-               :domain [-15 13]
+               :domain [-20 20]
                :range "width"}
               {:name "y"
                :type "linear"
                :round true
                :nice true
                :zero true
-               :domain [-25 15]
+               :domain [-20 20]
                :range "height"}
               {:name "x2"
                :type "linear"
                :round true
                :nice true
                :zero false
-               :domain [-15 13]
+               :domain [-20 20]
                :range "width"}
               {:name "y2"
                :type "linear"
                :round true
                :nice true
                :zero false
-               :domain [-25 15]
+               :domain [-20 20]
                :range "height"}]
      :axes [{:scale "x"
              :grid true
