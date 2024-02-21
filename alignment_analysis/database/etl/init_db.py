@@ -4,7 +4,7 @@ import pandas as pd
 from flask import current_app
 import os
 
-from alignment_analysis.database.data_prep import clean_responses_file
+from alignment_analysis.database.etl.data_prep import clean_responses_file
 
 from sqlalchemy import create_engine
 
@@ -161,7 +161,7 @@ def populate_db(db):
 
     db.create_all()
 
-    root_data_dir = os.path.join(current_app.root_path, 'database', 'data')
+    root_data_dir = os.path.join(current_app.root_path, 'database', 'etl', 'data')
 
     load_dimension(db.session)
     load_alignment(db.session)

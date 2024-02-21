@@ -1,7 +1,7 @@
 (ns alignment-analysis.events.select
   (:require
    [re-frame.core :as rf]
-   [alignment-analysis.queries :as q]
+   [alignment-analysis.queries.select :as select-q]
    [alignment-analysis.utils.funcs :as f-utils]
    [alignment-analysis.events.debounce]))
 
@@ -10,20 +10,20 @@
  ::handle-select-option-success
  (fn [db [_ select-type resp]]
    (-> db
-       (q/set-select-options select-type resp)
-       (q/set-select-busy-state select-type false))))
+       (select-q/set-select-options select-type resp)
+       (select-q/set-select-busy-state select-type false))))
 
-(rf/reg-event-fx
- ::handle-failure
- (fn [{db :db} [_ select-type _]]
+(rf/reg-event-db
+ ::handle-select-option-failure
+ (fn [db [_ select-type resp]]
    (-> db
-       (q/set-select-selections select-type [])
-       (q/set-select-busy-state select-type false))))
+       (select-q/set-select-selections select-type [])
+       (select-q/set-select-busy-state select-type false))))
 
 (rf/reg-event-db
  ::set-select-selections
  (fn [db [_ select-type resp]]
-   (q/set-select-selections db select-type (js->clj resp :keywordize-keys true))))
+   (select-q/set-select-selections db select-type (js->clj resp :keywordize-keys true))))
 
 (rf/reg-event-fx
  ::issue-debounce
@@ -35,7 +35,7 @@
 (rf/reg-event-db
  ::set-select-search-text
  (fn [db [_ select-type resp]]
-   (q/set-select-search-text db select-type resp)))
+   (select-q/set-select-search-text db select-type resp)))
 
 (rf/reg-event-fx
  ::update-select-debounce
@@ -43,7 +43,7 @@
    (let [db (:db cofx)
          char-count (count search-text)
          to-dispatch (if (f-utils/gt? char-count 2)
-                       (list [::issue-debounce select-id event key]
+                       (list ;;[::issue-debounce select-id event key]
                              [::set-select-search-text select-id search-text])
                        (list [::set-select-search-text select-id search-text]))]
      {:dispatch-n to-dispatch})))

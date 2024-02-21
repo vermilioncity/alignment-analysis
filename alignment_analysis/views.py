@@ -1,19 +1,18 @@
 from pathlib import Path
 
 from flask import current_app as app, send_from_directory, request, jsonify
-from sqlalchemy import func, alias, union_all, select, or_
 
-from alignment_analysis import db
-from alignment_analysis.database.models import (Respondent, Team, Location)
 from alignment_analysis.database.query import (get_respondents,
-                                               get_team_hierarchy,
-                                               get_aligned_respondent_responses,
-                                               jsonify_teams, denullify_teams,
-                                               standardize_scores)
-from alignment_analysis.database.query_utils import apply_filter, to_dict
-from alignment_analysis.utils import get_args
+                                               get_teams,
+                                               get_locations,
+                                               get_scores,
+                                               get_correlations,
+                                               get_answers,
+                                               get_questions)
+
 
 STATIC_PATH = str(Path(__file__).parents[0] / 'static')
+
 
 @app.route('/')
 def index():
@@ -22,80 +21,70 @@ def index():
 
 @app.route('/respondents', methods=['GET'])
 def respondents():
-    query = get_respondents(request.args)
+    args = request.args.to_dict(flat=False)
 
-    return jsonify([{'id': r.id, 'name': r.name} for r in query])
+    results = get_respondents(args)
+
+    return jsonify(results)
 
 
 @app.route('/teams', methods=['GET'])
 def teams():
 
-    team = alias(Team)
-    subteam = alias(Team)
+    args = request.args.to_dict(flat=False)
 
-    query = db.session.query(team.c.id.label('id_1'),
-                             team.c.name.label('name_1')) \
-                      .filter(team.c.parent_id.is_(None))
+    results = get_teams(args)
 
-    teams = get_team_hierarchy(query, team, subteam)
-
-    search_term = request.args.get('search')
-
-    if search_term:
-        teams = teams.subquery(with_labels=True)
-        name_cols = [c for c in teams.c if 'name' in c.name]
-        teams = db.session.query(*(c.label(c.name) for c in teams.c)) \
-                          .filter(or_(*(c.ilike(f'%%{search_term}%%')
-                                        for c in name_cols)))
-
-    if not teams.count():
-        return jsonify([])
-
-    teams = jsonify_teams(teams)
-    teams = to_dict(teams)
-    teams = denullify_teams(teams)
-
-    return jsonify(teams)
+    return jsonify(results)
 
 
 @app.route('/locations', methods=['GET'])
 def locations():
 
-    query = Location.query
+    args = request.args.to_dict(flat=False)
+    results = get_locations(args)
 
-    if request.args:
-        args = get_args(request.args)
-        query = apply_filter(query, args, 'location')
-
-    return jsonify([{'id': r.id, 'name': r.name} for r in query])
+    return jsonify(results)
 
 
 @app.route('/zscores', methods=['GET'])
 def zscores():
 
-    if request.args:
-        query = get_respondents(request.args)
-    else:
-        query = Respondent.query
+    args = request.args.to_dict(flat=False)
 
-    query = get_aligned_respondent_responses(query)
-    query = standardize_scores(query, ['id', 'name'])
+    results = get_scores(args)
 
-    results = [row._asdict() for row in query.all()]
-
-    return jsonify([{'id': r['id'],
-                     'name': r['name'],
-                     'evil_vs_good': float(r['evil_vs_good']),
-                     'chaotic_vs_lawful': float(r['chaotic_vs_lawful'])}
-                    for r in results])
+    return jsonify(results)
 
 
 @app.route('/correlation', methods=['GET'])
 def correlation():
 
-    import pandas as pd
-    from alignment_analysis import db
-    df = pd.read_sql('query.statement', con=db.engine)
+    args = request.args.to_dict(flat=False)
+
+    results = get_correlations(args)
+
+    return jsonify(results)
+
+
+@app.route('/answers', methods=['GET'])
+def answers():
+
+    args = request.args.to_dict(flat=False)
+
+    results = get_answers(args)
+
+    return jsonify(results)
+
+
+@app.route('/questions', methods=['GET'])
+def questions():
+
+    args = request.args.to_dict(flat=False)
+
+    results = get_questions(args)
+
+    return jsonify(results)
 
 
 @app.route('/css/<path:path>')
@@ -105,7 +94,6 @@ def send_css(path):
 
 @app.route('/data/<path:path>')
 def send_data(path):
-    assert False, "hello!"
     return send_from_directory('data/', path)
 
 

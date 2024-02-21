@@ -3,7 +3,7 @@ from flask.cli import FlaskGroup, click, with_appcontext
 import os
 
 from alignment_analysis import db, create_app
-from alignment_analysis.database.init_db import populate_db
+from alignment_analysis.database.etl.init_db import populate_db
 
 
 def create_cli_app(info):
