@@ -9,12 +9,7 @@ WORKDIR /app
 
 COPY . /app
 
-# i have no idea why leinengen wants this
-RUN git config --global user.email "rbruehlman@gmail.com"
-RUN git config --global user.name "Rebecca Bruehlman"
-RUN git config --global tag.gpgSign false
-
-RUN cd alignment-analysis && lein release app && cd ..
+RUN cd alignment-analysis && npx shadow-cljs compile app && cd ..
 
 RUN ln -s alignment-analysis/resources/public alignment_analysis/static
 

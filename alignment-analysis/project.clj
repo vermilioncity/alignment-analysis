@@ -1,5 +1,4 @@
 (defproject alignment-analysis "0.1.0-SNAPSHOT"
-  :scm {:dir ".."}
   :dependencies [[org.clojure/clojure "1.10.1"]
                  [org.clojure/clojurescript "1.10.773"
                   :exclusions [com.google.javascript/closure-compiler-unshaded
