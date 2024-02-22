@@ -64,7 +64,7 @@ def limit_tree_hierarchy(id_cols):
 
     exprs = []
     for c in id_cols:
-        expr = case([(models.respondent_team.c.team_id < c, None)], else_=c)
+        expr = case((models.respondent_team.c.team_id < c, None), else_=c)
         exprs.append(expr)
 
     return exprs

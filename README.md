@@ -22,43 +22,11 @@ This repo contains a simple web app that displays a scatterplot of people's scor
 This app is written in Python and Flask on the backend, ClojureScript on the frontend, and Postgres for the database.
 
 ## Running the app
-Firstly, this requires Postgres running on your system.
+The easiest way to run the app is by running docker-compose, which will build both the ClojureScript and Python apps and set up a Postgres instance.
 
-Secondly, you'll need to download the Clojure build tool, Leinengen.
-
-Leiningen requires the Java JDK, version 8 or higher.  Make sure you have Java JDK version 8 or above installed.
-
-The easiest way to install Leiningen is to use the Leiningen install script.
-
-shell
-Copy code
-wget https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein
-For PowerShell on Windows:
-
-shell
-Copy code
-(new-object net.webclient).DownloadString("https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein.ps1") > $env:USERPROFILE\.lein\lein.ps1
-Make the Script Executable (Unix/Linux/macOS only): Change the permissions of the downloaded script to make it executable:
-
-shell
-Copy code
-chmod a+x lein
-Move the Script to a Bin Directory: Move the lein script to a directory in your system's PATH. For example:
-
-shell
-Copy code
-sudo mv lein /usr/local/bin/lein
-Run Leiningen: Run lein for the first time. This will download the self-install package:
-
-shell
-Copy code
-lein
-
-ClojureScript requires the build tool Leinengen
-
-Assuming a Mac / Linux system:
+This can be done by running the following commands:
 ```
-
+docker-compose up
 ```
 
 ## Caveats / areas of improvement

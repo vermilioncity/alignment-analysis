@@ -1,6 +1,6 @@
 [
     {
-        "name": "Ronald McDonald",
+        "name": "George Clooney",
         "teams": ["MA-PTOC Leadership", "MA Leadership"],
         "location": "New York, NY"
     },
@@ -268,7 +268,7 @@
     "location": "New York, NY"
   },
   {
-    "name": "James McAvoy",
+    "name": "Jerry Seinfeld",
     "teams": ["Data Science"],
     "location": "New York, NY"
   },

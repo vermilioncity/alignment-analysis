@@ -42,12 +42,11 @@ def _sum_case_when(dimension):
                      .replace('.', '') \
                      .replace(' ', '_')
 
-    return func.sum(case([(column('dimension') == dimension,
-                           column('adjusted_score'))], else_=0)) \
+    return func.sum(case((column('dimension') == dimension, column('adjusted_score')), else_=0)) \
                .label(label)
 
 
-def standardize_scores(query):
+def standardize_scores(session, query):
     """ Recalibrate scores to be calibrated against others' answers."""
 
     query = query.add_columns(func.sum(Alignment.raw_score)
@@ -57,22 +56,26 @@ def standardize_scores(query):
                               func.avg(Alignment.binary_score)
                                   .over(partition_by=[Dimension.name,
                                                       Option.question_id])
-                                  .label('mean'))
+                                  .label('mean')) \
+                .subquery()
 
     std = func.nullif(func.sqrt(column('mean') * (1 - column('mean'))), 0)
     adjusted_score = ((column('binary_score') - column('mean')) / std)
-    query = query.from_self('dimension',
-                            'raw_score', 'binary_score',
-                            'question_id', 'option_id',
+    query = session.query(query.c.dimension,
+                            query.c.raw_score,
+                            query.c.binary_score,
+                            query.c.question_id,
+                            query.c.option_id,
                             adjusted_score.label('adjusted_score'),
-                            'id', 'name')
+                            query.c.id,
+                            query.c.name)
 
     return query
 
 
 def sum_standardized_scores(query):
 
-    query = query.subquery(with_labels=True)
+    query = query.subquery()
 
     query = db.session.query(query.c.id,
                              query.c.name) \
@@ -115,7 +118,7 @@ def get_scores(args):
     query = db.session.query(Respondent)
 
     query = get_aligned_respondent_responses(query)
-    query = standardize_scores(query)
+    query = standardize_scores(db.session, query)
     query = sum_standardized_scores(query)
 
     if args:
@@ -138,7 +141,7 @@ def get_correlations(args):
     query = db.session.query(Respondent)
 
     query = get_aligned_respondent_responses(query)
-    query = standardize_scores(query)
+    query = standardize_scores(db.session, query)
 
     if args:
         query = query.subquery()
