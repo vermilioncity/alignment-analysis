@@ -29,13 +29,15 @@
           [oz/vega (scatterplot)]
           ]
          [:div
-          [correlation]]]]
+          [correlation]
+          ]
+         ]]
        [:h4 {:style {:font-family "Tahoma" :margin-left "340px"}} "Filters"]
        [:div {:style {:display "flex" :flex-direction "row"
-                      :justify-content "center" :align-items "flex-start" :max-width "700px"}}
+                      :justify-content "center" :align-items "flex-start" :max-width "600px"}}
         [:div {:style {:margin-bottom "10px" :margin-right "10px" :width "100%"}}
          (reagent/as-element [teams-select])]
-        [:div {:style {:margin-bottom "10px" :margin-right "10px" :width "80%"}}
+        [:div {:style {:margin-bottom "10px" :margin-right "10px" :width "100%"}}
          (reagent/as-element [locations-select])]
-        [:div {:style {:margin-bottom "10px" :margin-right "10px" :width "80%"}}
+        [:div {:style {:margin-bottom "10px" :margin-right "10px" :width "100%"}}
          (reagent/as-element [respondents-select])]]])))

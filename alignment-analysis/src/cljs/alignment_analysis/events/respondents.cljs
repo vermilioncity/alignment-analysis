@@ -10,9 +10,8 @@
 (rf/reg-event-fx
  ::get-respondent-options
  (fn [{db :db}]
-
-   (let [params {:team (vals (select-q/get-select-selections db :teams))
-                 :location (vals (select-q/get-select-selections db :locations))}]
+   (let [params {:team (map #(:value %) (select-q/get-select-selections db :teams))
+                 :location (map #(:value %) (select-q/get-select-selections db :locations))}]
      {:http-xhrio {:method :get
                    :uri "/respondents"
                    :params (f-utils/filter-map-empty-values params)

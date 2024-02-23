@@ -11,7 +11,8 @@
     "vega-lite": "^3.2.1"
   },
   "devDependencies": {
-    "shadow-cljs": "^2.11.8"
+    "oz": "file:metasoarous/oz@1.6.0-alpha36",
+    "shadow-cljs": "2.11.8"
   },
   "description": "A [re-frame](https://github.com/day8/re-frame) application designed to ... well, that part is up to you.",
   "version": "1.0.0",

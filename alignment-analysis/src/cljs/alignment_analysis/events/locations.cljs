@@ -10,8 +10,8 @@
 (rf/reg-event-fx
  ::get-location-options
  (fn [{db :db}]
-   (let [params {:location (vals (select-q/get-select-selections db :locations))
-                 :team (vals (select-q/get-select-options db :teams))}]
+   (let [params {:team (map #(:value %) (select-q/get-select-selections db :teams))
+                 :location (map #(:value %) (select-q/get-select-selections db :locations))}]
 
      {:http-xhrio {:method :get
                    :uri "/locations"

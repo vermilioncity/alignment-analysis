@@ -15,21 +15,19 @@
 (def active {:fill {:value yellow}
              :stroke {:value dark-yellow}})
 
-(defn format [& args] (apply gstring/format args))
-
 (def tooltip-label
   (let [chaos "round(datum.chaotic_vs_lawful)"
         evil "round(datum.evil_vs_good)"
-        conds ["if ((%s > 0) && (%s < 0), 'Lawful/Evil', "
-               "if ((%s > 0) && (%s > 0), 'Lawful/Good', "
-               "if ((%s < 0) && (%s > 0), 'Chaotic/Good', "
-               "if ((%s < 0) && (%s < 0), 'Chaotic/Evil', "
-               "if ((%s == 0) && (%s < 0), 'Neutral/Evil', "
-               "if ((%s == 0) && (%s > 0), 'Neutral/Good', "
-               "if ((%s > 0) && (%s == 0), 'Lawful/Neutral', "
-               "if ((%s < 0) && (%s == 0), 'Chaotic/Neutral', "]
-        fmtconds (str/join (map #(format % chaos evil) conds))]
-        (str "{'Name': datum['name'], 'Assignment' : "fmtconds " 'Neutral'))))))))}")))
+        conds [(str "if ((" chaos " > 0) && (" evil " < 0), 'Lawful/Evil', ")
+               (str "if ((" chaos " > 0) && (" evil " > 0), 'Lawful/Good', ")
+               (str "if ((" chaos " < 0) && (" evil " > 0), 'Chaotic/Good', ")
+               (str "if ((" chaos " < 0) && (" evil " < 0), 'Chaotic/Evil', ")
+               (str "if ((" chaos " == 0) && (" evil " < 0), 'Neutral/Evil', ")
+               (str "if ((" chaos " == 0) && (" evil " > 0), 'Neutral/Good', ")
+               (str "if ((" chaos " > 0) && (" evil " == 0), 'Lawful/Neutral', ")
+               (str "if ((" chaos " < 0) && (" evil " == 0), 'Chaotic/Neutral', ")]
+        fmtconds (apply str (interpose "" conds))]
+    (str "{'Name': datum['name'], 'Assignment' : " fmtconds " 'Neutral'))))))))}")))
 
 (defn scatterplot []
   (let [scores @(rf/subscribe [::score-subs/zscores])
@@ -37,8 +35,8 @@
 
     {:data {:name "zscores"
             :values scores}
-     :width 650
-     :height 650
+     :width 600
+     :height 600
      :title {:text "Alignment Score"
               :fontSize 20}
      :selection {:hover {:type "single"
@@ -50,7 +48,7 @@
               :encode {:enter {:fill {:value "#dbd9d9"}
                                :text {:value "Lawful/Evil"}
                                :x {:value 75}
-                               :y {:value 120}
+                               :y {:value 170}
                                :fontSize {:value 30}
                                :opacity {:value 0.5}}}}
              {:name "chaotic-evil"
@@ -58,23 +56,23 @@
               :encode {:enter {:fill {:value "#dbd9d9"}
                                :text {:value "Chaotic/Evil"}
                                :x {:value 75}
-                               :y {:value 375}
+                               :y {:value 450}
                                :fontSize {:value 30}
                                :opacity {:value 0.5}}}}
              {:name "chaotic-good"
               :type "text"
               :encode {:enter {:fill {:value "#dbd9d9"}
                                :text {:value "Chaotic/Good"}
-                               :x {:value 330}
-                               :y {:value 375}
+                               :x {:value 350}
+                               :y {:value 450}
                                :fontSize {:value 30}
                                :opacity {:value 0.5}}}}
              {:name "lawful-good"
               :type "text"
               :encode {:enter {:fill {:value "#dbd9d9"}
                                :text {:value "Lawful/Good"}
-                               :x {:value 330}
-                               :y {:value 120}
+                               :x {:value 350}
+                               :y {:value 170}
                                :fontSize {:value 30}
                                :opacity {:value 0.5}}}}
 

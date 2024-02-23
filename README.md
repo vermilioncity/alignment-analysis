@@ -26,8 +26,16 @@ The easiest way to run the app is by running docker-compose, which will build bo
 
 This can be done by running the following commands:
 ```
-docker-compose up
+docker-compose up --build
 ```
+
+You can access the deployment by going to http://localhost:5000/.
+
+## Using the app
+By default, the app will display all respondents' scores on the scatterplot.  However, you can drill down on specific teams and locations, or even specific respondents.  Filtering on team(s) or locations(s) will have an impact on the available selections for other filters.
+
+If you hover over a given dot, you can see the score.  Alternatively, by selecting a user from the drop down, that user will be highlighted in yellow.  Selecting a specific user will also prompt a "correlation chart" that shows who the user answered most and least similarly to.
+[example](resources/example.png)
 
 ## Caveats / areas of improvement
 This project is definitely rough around the edges!  Some areas of concern / improvements:
@@ -39,4 +47,4 @@ From an analytical perspective, I never finished this app, so some additional an
 
 From a technical perspective:
 - This was a very early foray into frontend development.  It could definitely be prettier :-)
-- This isn't productionalized.  Ideally, I'd have put it in Docker and written some tests (and, had I chosen to make it available to the web at large, I'd probably have used Zappa to host it and set up an AWS database)
+- This isn't productionalized.  Ideally, I'd have written some tests and separated the build and deployment of the frontend and backend (and, had I chosen to make it available to the web at large, I'd probably have used Zappa to host it and set up an AWS database)

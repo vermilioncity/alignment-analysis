@@ -5,6 +5,7 @@
             [alignment-analysis.events.select :as select-events]
             [alignment-analysis.events.scores :as score-events]
             [alignment-analysis.events.locations :as location-events]
+            [alignment-analysis.events.respondents :as respondent-events]
             [alignment-analysis.subs.select :as select-subs]))
 
 (defn- update-location-options [select-id search-text]
@@ -15,7 +16,9 @@
 (defn on-value-change [select-id selected-value]
   (rf/dispatch [::select-events/set-select-selections select-id selected-value])
   (rf/dispatch [::score-events/zscores])
-  (rf/dispatch [::update-options-based-on-selection :location selected-value]))
+  (rf/dispatch [::update-options-based-on-selection :location selected-value])
+  (rf/dispatch [::respondent-events/get-respondent-options])
+  )
 
 (defn locations-select []
   (let [search-text @(rf/subscribe [::select-subs/select-search-text :locations])

@@ -106,5 +106,5 @@
 (defn correlation []
   (let [scores @(rf/subscribe [::score-subs/correlation])
         respondents @(rf/subscribe [::select-subs/select-selections :respondents])]
-    (when-not (or (nil? scores) (nil? respondents))
+    (when-not (or (nil? scores) (not (seq respondents)))
       [score-table scores (take 4 respondents)])))

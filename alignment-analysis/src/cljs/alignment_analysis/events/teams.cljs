@@ -11,9 +11,9 @@
 (re-frame/reg-event-fx
  ::get-team-options
  (fn [{db :db}]
-   
-   (let [params {:location (vals (select-q/get-select-selections db :locations))
-                 :team (vals (select-q/get-select-options db :teams))}]
+
+   (let [params {:team (map #(:value %) (select-q/get-select-selections db :teams))
+                 :location (map #(:value %) (select-q/get-select-selections db :locations))}]
      {:http-xhrio {:method :get
                    :uri "/teams"
                    :params (f-utils/filter-map-empty-values params)

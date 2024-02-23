@@ -4,10 +4,11 @@ RUN apt-get update && apt-get install -y wget
 RUN wget https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein -O /usr/local/bin/lein && chmod a+x /usr/local/bin/lein
 
 RUN apt-get install -y nodejs npm
+RUN npm install -g shadow-cljs
 
 WORKDIR /app
 COPY alignment-analysis /app/alignment-analysis
-RUN cd alignment-analysis && npx shadow-cljs compile app
+RUN cd alignment-analysis && lein prod
 
 FROM python:3.8
 
