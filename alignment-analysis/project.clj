@@ -10,7 +10,7 @@
                  [reagent "0.10.0"]
                  [cljsjs/react-select "2.4.4-0"]
                  [re-frame "1.0.0"]
-                 [metasoarous/oz "1.6.0-alpha13"]]
+                 [metasoarous/oz "1.6.0-alpha36"]]
 
   :plugins [[lein-shadow "0.2.0"]
             [lein-shell "0.5.0"]]
@@ -30,7 +30,7 @@
                 :builds {:app {:target :browser
                                :output-dir "resources/public/js/compiled"
                                :asset-path "/js/compiled"
-                               :compiler-options {:output-feature-set :es-next}
+                               :compiler-options {:output-feature-set :es6}
                                :modules {:app {:init-fn alignment-analysis.core/init
                                                :preloads [devtools.preload]}}
                                :dev        {:compiler-options {:source-map      true
@@ -61,5 +61,5 @@
    {:dependencies [[binaryage/devtools "1.0.2"]
                    [day8.re-frame/re-frame-10x "0.7.0"]]
     :source-paths ["dev"]}
-   :prod {}}
+   :prod {:dependencies [[metasoarous/oz "1.6.0-alpha36"]]}}
   :prep-tasks [])

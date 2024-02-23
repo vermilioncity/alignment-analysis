@@ -1,10 +1,27 @@
-FROM python:3.7
+FROM openjdk:11 as builder
 
-WORKDIR /src
+RUN apt-get update && apt-get install -y wget
+RUN wget https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein -O /usr/local/bin/lein && chmod a+x /usr/local/bin/lein
 
-COPY requirements.txt .
+RUN apt-get install -y nodejs npm
+RUN npm install -g shadow-cljs
+
+WORKDIR /app
+COPY alignment-analysis /app/alignment-analysis
+RUN cd alignment-analysis && lein prod
+
+FROM python:3.8
+
+RUN apt-get update && pip install --upgrade pip
+
+WORKDIR /app
+
+COPY requirements.txt /app/requirements.txt
+
 RUN pip install -r requirements.txt
 
-COPY alignment_analysis alignment_analysis/
+COPY . /app
 
-CMD ["python", "-m", "alignment_analysis.manage", "--init_db", "--debug", "run", "--host", "0.0.0.0", "--port", "5000"]
+COPY --from=builder /app/alignment-analysis/resources/public/ /app/alignment_analysis/static/
+
+CMD ["python", "-m", "alignment_analysis.manage", "--init_db", "run", "--host", "0.0.0.0", "--port", "5000"]

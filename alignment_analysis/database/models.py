@@ -1,5 +1,4 @@
 from sqlalchemy import Column, Integer, ForeignKey, String
-from sqlalchemy.ext.associationproxy import association_proxy
 from sqlalchemy.orm import relationship
 from alignment_analysis import db
 
@@ -9,6 +8,7 @@ respondent_team = db.Table('respondent_team',
                                      Integer, ForeignKey('respondent.id')),
                            db.Column('team_id',
                                      Integer, ForeignKey('team.id')))
+
 
 class Respondent(db.Model):
     __tablename__ = 'respondent'

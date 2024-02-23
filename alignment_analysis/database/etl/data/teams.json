@@ -1,0 +1,111 @@
+[
+  {
+    "team": "Non-MA"
+  },
+  {
+    "team": "Media Analytics"
+  },
+  {
+      "team": "Other MA",
+      "parent": "Media Analytics"
+  },
+  { "team": "Data Science",
+    "parent": "Non-MA"
+  },
+  {
+    "team": "MA-PTOC",
+    "parent": "Media Analytics"
+  },
+  {
+    "team": "Content Analytics",
+    "parent": "MA-PTOC"
+  },
+  {
+    "team": "Commercial Enablement",
+    "parent": "MA-PTOC"
+  },
+  {
+    "team": "Primary Research",
+    "parent": "Media Analytics"
+  },
+  {
+    "team": "Strategic Solutions",
+    "parent": "Commercial Enablement"
+  },
+  {
+    "team": "MAC",
+    "parent": "Media Analytics"
+  },
+  {
+    "team": "OPM",
+    "parent": "Commercial Enablement"
+  },
+  {
+    "team": "Client Insights",
+    "parent": "Commercial Enablement"
+  },
+  {
+    "team": "Audience Insights",
+    "parent": "Commercial Enablement"
+  },
+  {
+    "team": "CAKE",
+    "parent": "Content Analytics"
+  },
+  {
+    "team": "Nautilus",
+    "parent": "Content Analytics"
+  },
+  {
+    "team": "Total Audience",
+    "parent": "MA-PTOC"
+  },
+  {
+    "team": "InCan",
+    "parent": "Content Analytics"
+  },
+  {
+    "team": "MA-PTOC Leadership",
+    "parent": "MA-PTOC"
+  },
+  {
+    "team": "MA Leadership",
+    "parent": "Media Analytics"
+  },
+  {
+    "team": "Digital MAC",
+    "parent": "MAC"
+  },
+  {
+    "team": "TV MAC",
+    "parent": "MAC"
+  },
+  {
+    "team": "Advertising\\/Agency MAC",
+    "parent": "MAC"
+  },
+  {
+    "team": "Local MAC",
+    "parent": "MAC"
+  },
+  {
+    "team": "BEEV",
+    "parent": "Primary Research"
+  },
+  {
+    "team": "Brand Effect",
+    "parent": "Primary Research"
+  },
+  {
+    "team": "OBA",
+    "parent": "MA-PTOC"
+  },
+  {
+    "team": "Point Logic",
+    "parent": "MA-PTOC"
+  },
+  {
+    "team": "DENG",
+    "parent": "Commercial Enablement"
+  }
+]

@@ -123,4 +123,5 @@ volumes/
 # artifacts
 dump.rdb
 
-data/
+alignment_analysis/database/etl/data/real_*
+alignment-analysis/metasoarous/oz@1.6.0-alpha36/node_modules/

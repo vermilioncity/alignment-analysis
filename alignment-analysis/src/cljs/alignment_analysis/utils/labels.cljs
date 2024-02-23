@@ -60,7 +60,7 @@
     (if (nil? options-list) nil
         (->> options-list
              (mapcat select-team-options)
-             (map #(assoc % :hidden (f-utils/in? (vec child-teams) (:value %))))))))
+             (filter #(not (f-utils/in? (vec child-teams) (:value %))))))))
 
 (defn filter-valid-selections [existing-selection valid-options]
   (set/intersection (set existing-selection) (set valid-options)))

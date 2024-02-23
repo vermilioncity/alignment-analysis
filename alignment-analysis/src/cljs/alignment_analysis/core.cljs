@@ -22,3 +22,9 @@
   (rf/dispatch-sync [::db-events/initialize-db])
   (dev-setup)
   (mount-root))
+
+(defn ^:export main
+  []
+  (rf/dispatch-sync [::db-events/initialize-db])
+  (dev-setup)
+  (mount-root))

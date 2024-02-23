@@ -1,0 +1,295 @@
+[
+    {
+        "name": "George Clooney",
+        "teams": ["MA-PTOC Leadership", "MA Leadership"],
+        "location": "New York, NY"
+    },
+    {
+        "name": "Taylor Swift",
+        "teams": ["MA-PTOC Leadership", "Content Analytics"],
+        "location": "Pittsburgh, PA"
+    },
+    {
+        "name": "Demi Lovato",
+        "teams": ["Nautilus"],
+        "location": "Chicago, IL"
+    },
+    {
+        "name": "Whitney Houston",
+        "teams": ["CAKE"],
+        "location": "Los Angeles, CA"
+    },
+    {
+        "name": "Will Smith",
+        "teams": ["Client Insights"],
+        "location": "New York, NY"
+    },
+    {
+        "name": "Marilyn Manson",
+        "teams": ["Total Audience"],
+        "location": "Pittsburgh, PA"
+    },
+    {
+        "name": "Hugh Jackman",
+        "teams": ["Non-MA"],
+        "location": "New York, NY"
+    },
+    {
+        "name": "Tom Hanks",
+        "teams": ["Digital MAC"],
+        "location": "New York, NY"
+    },
+    {
+        "name": "Ryan Reynolds",
+        "teams": ["Nautilus"],
+        "location": "Remote"
+    },
+    {
+        "name": "Chris Hemsworth",
+        "teams": ["Non-MA"],
+        "location": "Columbia, MD"
+    },
+    {
+        "name": "Jim Carrey",
+        "teams": ["Digital MAC"],
+        "location": "Los Angeles, CA"
+    },
+    {
+        "name": "Oprah Winfrey",
+        "teams": ["MA Leadership"],
+        "location": "Chicago, IL"
+    },
+    {
+        "name": "Amy Winehouse",
+        "teams": ["Client Insights"],
+        "location": "Remote"
+    },
+    {
+        "name": "Benedict Cumberbatch",
+        "teams": ["OPM"],
+        "location": "Remote"
+    },
+    {
+        "name": "Stan Lee",
+        "teams": ["Digital MAC"],
+        "location": "New York, NY"
+    },
+    {
+        "name": "Emma Watson",
+        "teams": ["InCan"],
+        "location": "New York, NY"
+    },
+    {
+        "name": "Jake Gyllenhaal",
+        "teams": ["OPM"],
+        "location": "Remote"
+    },
+    {
+        "name": "Jake Paul",
+        "teams": ["MA-PTOC Leadership", "InCan"],
+        "location": "Pittsburgh, PA"
+    },
+    {
+        "name": "Chris Pratt",
+        "teams": ["MA Leadership"],
+        "location": "Remote"
+    },
+    {
+        "name": "Kanye West",
+        "teams": ["CAKE"],
+        "location": "Pittsburgh, PA"
+    },
+    {
+        "name": "Kirsten Bell",
+        "teams": ["Total Audience"],
+        "location": "Remote"
+    },
+    {
+        "name": "Steven Spielberg",
+        "teams": ["MA Leadership"],
+        "location": "New York, NY"
+    },
+    {
+        "name": "Robert Pattinson",
+        "teams": ["CAKE"],
+        "location": "Pittsburgh, PA"
+    },
+    {
+        "name": "Ariana Grande",
+        "teams": ["TV MAC"],
+        "location": "Los Angeles, CA"
+    },
+    {
+        "name": "Jimmy Fallon",
+        "teams": ["Primary Research"],
+        "location": "New York, NY"
+    },
+    {
+        "name": "Marilyn Monroe",
+        "teams": ["Total Audience"],
+        "location": "Los Angeles, CA"
+    },
+    {
+        "name": "Freddie Mercury",
+        "teams": ["MA-PTOC Leadership", "Total Audience"],
+        "location": "Remote"
+    },
+    {
+        "name": "Nina Dobrev",
+        "teams": ["CAKE"],
+        "location": "Chicago, IL"
+    },
+    {
+        "name": "Victoria Justice",
+        "teams": ["Client Insights"],
+        "location": "Remote"
+    },
+    {
+        "name": "Will Ferrell",
+        "teams": ["OBA"],
+        "location": "Columbia, MD"
+    },
+    {
+        "name": "Anne Frank",
+        "teams": ["Point Logic"],
+        "location": "Non-US"
+    },
+    {
+        "name": "Carrie Fisher",
+        "teams": ["DENG"],
+        "location": "New York, NY"
+    },
+    {
+        "name": "Blake Lively",
+        "teams": ["Client Insights"],
+        "location": "New York, NY"
+    },
+    {
+        "name": "Winston Churchill",
+        "teams": ["Strategic Solutions"],
+        "location": "New York, NY"
+    },
+    {
+        "name": "Amelia Earheart",
+        "teams": ["Content Analytics"],
+        "location": "Remote"
+    },
+    {
+        "name": "Thomas Sanders",
+        "teams": ["Brand Effect"],
+        "location": "New York, NY"
+    },
+    {
+        "name": "Bill Gates",
+        "teams": ["Primary Research"],
+        "location": "Remote"
+    },
+    {
+        "name": "Shane Dawson",
+        "teams": ["BEEV"],
+        "location": "Remote"
+    },
+    {
+        "name": "Steve Jobs",
+        "teams": ["MA-PTOC Leadership"],
+        "location": "Pittsburgh, PA"
+    },
+    {
+        "name": "James Corden",
+        "teams": ["Non-MA"],
+        "location": "New York, NY"
+    },
+    {
+        "name": "Gabby Douglas",
+        "teams": ["Non-MA"],
+        "location": "New York, NY"
+    },
+    {
+        "name": "Kevin Jonas",
+        "teams": ["Client Insights"],
+        "location": "Remote"
+    },
+    {
+        "name": "Simone Biles",
+        "teams": ["Client Insights"],
+        "location": "New York, NY"
+    },
+    {
+        "name": "Johnny Depp",
+        "teams": ["BEEV"],
+        "location": "New York, NY"
+    },
+    {
+        "name": "Derek Hough",
+        "teams": ["Other MA"],
+        "location": "Columbia, MD"
+    },
+    {
+        "name": "Robin Williams",
+        "teams": ["Total Audience"],
+        "location": "New York, NY"
+    },
+    {
+        "name": "Steve Harvey",
+        "teams": ["Primary Research"],
+        "location": "Chicago, IL"
+    },
+    {
+        "name": "Tiger Woods",
+        "teams": ["Other MA"],
+        "location": "Tampa, FL"
+    },
+    {
+        "name": "Dolly Parton",
+        "teams": ["Nautilus"],
+        "location": "Pittsburgh, PA"
+    },
+    {
+        "name": "Mark Hamill",
+        "teams": ["Primary Research"],
+        "location": "Chicago, IL"
+    },
+    {   "name": "Tom Holland",
+    "teams": ["Data Science"],
+    "location": "New York, NY"},
+    {
+    "name": "Usain Bolt",
+    "teams": ["Data Science"],
+    "location": "New York, NY"
+  },
+  {
+    "name": "Alexander Hamilton",
+    "teams": ["Data Science"],
+    "location": "New York, NY"
+  },
+  {
+    "name": "Miley Cyrus",
+    "teams": ["Data Science"],
+    "location": "New York, NY"
+  },
+  {
+    "name": "Jerry Seinfeld",
+    "teams": ["Data Science"],
+    "location": "New York, NY"
+  },
+  {
+    "name": "Danai Gurira",
+    "teams": ["Data Science"],
+    "location": "Non-US"
+  },
+  {
+    "name": "Tim Burton",
+    "teams": ["Data Science"],
+    "location": "New York, NY"
+  },
+  {
+    "name": "Pete Wentz",
+    "teams": ["Non-MA"],
+    "location": "New York, NY"
+  },
+  {
+    "name": "Lilly Singh",
+    "teams": ["Non-MA"],
+    "location": "New York, NY"
+  }
+]
